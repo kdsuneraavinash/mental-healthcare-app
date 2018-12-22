@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mental_healthcare_app/ui/clinic_loactions/clinic_location_map.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
 import 'package:mental_healthcare_app/ui/trivia_qa/trivia_qa.dart';
@@ -16,15 +17,25 @@ class HomePage extends StatelessWidget {
             IconGridTile(
               footerText: "Send us your problem",
               color: Colors.blue,
-              icon: FontAwesomeIcons.envelopeOpen,
+              icon: FontAwesomeIcons.handsHelping,
             ),
             IconGridTile(
               footerText: "Consultants & Psychiatrists in Sri Lanka",
-              color: theme.UIColors.doctorListColor,
-              icon: FontAwesomeIcons.stethoscope,
+              color: theme.UIColors.doctorColor,
+              icon: FontAwesomeIcons.userMd,
               destinationPageCall: () {
                 TransitionMaker.slideTransition(
                     destinationPageCall: () => DocListPage())
+                  ..start(context);
+              },
+            ),
+            IconGridTile(
+              footerText: "See near clinic locations",
+              color: Colors.brown,
+              icon: FontAwesomeIcons.hospital,
+              destinationPageCall: () {
+                TransitionMaker.slideTransition(
+                    destinationPageCall: () => ClinicLocationMap())
                   ..start(context);
               },
             ),
@@ -42,7 +53,12 @@ class HomePage extends StatelessWidget {
                     destinationPageCall: () => TriviaQA())
                   ..start(context);
               },
-            )
+            ),
+            IconGridTile(
+              footerText: "Settings",
+              color: Colors.blueGrey,
+              icon: FontAwesomeIcons.cogs,
+            ),
           ],
         ));
   }

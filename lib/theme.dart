@@ -13,13 +13,21 @@ class UIColors {
   static const Color triviaAnswerSplashColor = const Color(0xFF2A6BC5);
   static const Color triviaAnswerWrongBackgroundColor = const Color(0xFFDD3E54);
   static const Color triviaAnswerWrongSplashColor = const Color(0xFFCD2E44);
-  static const Color triviaAnswerCorrectBackgroundColor = const Color(0xFF11998E);
+  static const Color triviaAnswerCorrectBackgroundColor =
+      const Color(0xFF11998E);
   static const Color triviaAnswerCorrectSplashColor = const Color(0xFF01897E);
   static const Color triviaTimerBackgroundColor = const Color(0xFFB71C1C);
   static const Color triviaLoadingBackgroundColor = const Color(0xFFFEFEFE);
   static const Color triviaLoadingSpinnerColor = const Color(0xFF4e4376);
 
-  static const Color doctorListColor = Colors.green;
+  static const Color doctorColor = Colors.green;
+  static const Color doctorCallColor = Colors.green;
+  static const Color doctorMessageColor = Colors.orange;
+  static const Color doctorEmailColor = Colors.red;
+  static const Color doctorDisabledColor = Colors.grey;
+  static const Color doctorAvatarMaleColor = const Color(0xFF1565C0);
+  static const Color doctorAvatarFemaleColor = Colors.pink;
+  static const Color doctorAvatarIconColor = Colors.white;
 }
 
 class UITextThemes {

@@ -17,7 +17,7 @@ class DocListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultants/Psychiatrists in Sri Lanka"),
-        backgroundColor: theme.UIColors.doctorListColor,
+        backgroundColor: theme.UIColors.doctorColor,
       ),
       body: DocListPageContent(DocListBLoC()),
     );
@@ -47,13 +47,14 @@ class DocListPageContent extends StatelessWidget {
                 return ExpansionTile(
                   key: Key("Doctor:" + index.toString()),
                   leading: CircleAvatar(
-                    backgroundColor:
-                        doctor.sex == Sex.MALE ? Colors.blue[800] : Colors.pink,
+                    backgroundColor: doctor.sex == Sex.MALE
+                        ? theme.UIColors.doctorAvatarMaleColor
+                        : theme.UIColors.doctorAvatarFemaleColor,
                     child: Icon(
                       doctor.sex == Sex.MALE
                           ? FontAwesomeIcons.male
                           : FontAwesomeIcons.female,
-                      color: Colors.white,
+                      color: theme.UIColors.doctorAvatarIconColor,
                     ),
                   ),
                   title: Column(
@@ -75,19 +76,19 @@ class DocListPageContent extends StatelessWidget {
                             icon: FontAwesomeIcons.phone,
                             launchMethod: LaunchMethod.CALL,
                             data: doctor.contactNumber,
-                            color: Colors.green,
+                            color: theme.UIColors.doctorCallColor,
                           ),
                           ContactButton(
                             icon: FontAwesomeIcons.comment,
                             launchMethod: LaunchMethod.MESSAGE,
                             data: doctor.contactNumber,
-                            color: Colors.orange,
+                            color: theme.UIColors.doctorMessageColor,
                           ),
                           ContactButton(
-                            icon: FontAwesomeIcons.envelope,
+                            icon: FontAwesomeIcons.at,
                             launchMethod: LaunchMethod.MAIL,
                             data: doctor.email,
-                            color: Colors.red,
+                            color: theme.UIColors.doctorEmailColor,
                           ),
                         ],
                       ),
@@ -115,7 +116,7 @@ class ContactButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = (MediaQuery.of(context).size.width - 40)/3;
+    double width = (MediaQuery.of(context).size.width - 40) / 3;
     return Container(
       child: Material(
         color: Colors.transparent,
@@ -130,7 +131,7 @@ class ContactButton extends StatelessWidget {
           ),
         ),
       ),
-      color: (data == null) ? Colors.grey : color,
+      color: (data == null) ? theme.UIColors.doctorDisabledColor : color,
     );
   }
 }
