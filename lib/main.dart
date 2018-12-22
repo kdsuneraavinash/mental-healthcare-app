@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mental_healthcare_app/ui/trivia_qa/trivia_qa.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
+import 'package:mental_healthcare_app/ui/home/home.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mental HealthCare',
       theme: theme.UITheme.build(),
-      home: TriviaQA()
+      home: HomePage()
     );
   }
 }

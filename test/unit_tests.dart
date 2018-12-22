@@ -6,7 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mental_healthcare_app/logic/trivia_qa.dart';
+import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
+import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 
 void main() {
   test("Checking if API call works correctly", () async {
@@ -16,5 +17,9 @@ void main() {
 
   test("Checking if trivia fromOpenDBJSON() works", () async {
     expect(await TriviaQuestion.fromOpenDB(), allOf([isNotNull]));
+  });
+
+  test("Checking if test Doctors load successfully", () {
+    expect(Doctor.loadTestDoctors(), allOf([isNotNull]));
   });
 }

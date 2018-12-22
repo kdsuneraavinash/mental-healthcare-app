@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mental_healthcare_app/bloc/trivia_qa.dart';
-import 'package:mental_healthcare_app/logic/trivia_qa.dart';
+import 'package:mental_healthcare_app/bloc/trivia_qa_bloc.dart';
+import 'package:mental_healthcare_app/logic/trivia_qa/answer.dart';
+import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 
 class TriviaQA extends StatelessWidget {
@@ -11,11 +12,13 @@ class TriviaQA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key("TriviaPage"),
       appBar: AppBar(
+        backgroundColor: theme.UIColors.triviaColor,
         title: StreamBuilder<int>(
           stream: bloc.scoreStream,
           builder: (_, snapshot) => snapshot.hasData
-              ? Text("SCORE ${snapshot.data}")
+              ? Text("SCORE: ${snapshot.data}")
               : Text("Trivia Questionaire"),
         ),
         centerTitle: true,
@@ -25,13 +28,6 @@ class TriviaQA extends StatelessWidget {
         builder: (_, snapshot) {
           bool isLoading = !snapshot.hasData || snapshot.data;
           List<Widget> widgets = [
-            Opacity(
-              opacity: 0.7,
-              child: Image.network(
-                "https://images.pexels.com/photos/40465/pexels-photo-40465.jpeg",
-                fit: BoxFit.cover,
-              ),
-            ),
             TriviaQABody(bloc: bloc),
           ];
           if (isLoading)
@@ -39,9 +35,13 @@ class TriviaQA extends StatelessWidget {
               Opacity(
                 opacity: 0.5,
                 child: Container(
-                  color: Colors.black,
+                  color: theme.UIColors.triviaLoadingBackgroundColor,
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(
+                        theme.UIColors.triviaLoadingSpinnerColor,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -65,7 +65,6 @@ class TriviaQABody extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-//        AnimatedTimerLineWidget(),
         Expanded(
             child: StreamBuilder<TriviaQuestion>(
           stream: bloc.triviaQuestionStream,
@@ -100,62 +99,6 @@ class TriviaQABody extends StatelessWidget {
   }
 }
 
-//class AnimatedTimerLineWidget extends StatefulWidget {
-//  @override
-//  _AnimatedTimerLineWidgetState createState() =>
-//      _AnimatedTimerLineWidgetState();
-//}
-//
-//class _AnimatedTimerLineWidgetState extends State<AnimatedTimerLineWidget>
-//    with SingleTickerProviderStateMixin {
-//  Animation<double> _animation;
-//  AnimationController _animationController;
-//
-//  @override
-//  void initState() {
-//    super.initState();
-//    _animationController = AnimationController(
-//        vsync: this,
-//        duration: Duration(seconds: 100),
-//        animationBehavior: AnimationBehavior.preserve);
-//    _animation =
-//        CurvedAnimation(parent: _animationController, curve: Curves.linear)
-//          ..addStatusListener((status) {
-//            if (status == AnimationStatus.completed ||
-//                status == AnimationStatus.dismissed) {
-//              print("Time is up");
-//            }
-//          });
-//  }
-//
-//  @override
-//  void dispose() {
-//    _animationController.stop();
-//    super.dispose();
-//  }
-//
-//  @override
-//  Widget build(BuildContext context) {
-//    return Row(
-//      children: <Widget>[
-//        Container(
-//            width: MediaQuery.of(context).size.width,
-//            height: 10.0,
-//            child: AnimatedBuilder(
-//              animation: _animation,
-//              builder: (animation, _) {
-//                return LinearProgressIndicator(
-//                  value: _animation.value,
-//                  valueColor: AlwaysStoppedAnimation(
-//                      theme.UIColors.triviaTimerBackgroundColor),
-//                );
-//              },
-//            ))
-//      ],
-//    );
-//  }
-//}
-
 class QuestionWidget extends StatelessWidget {
   final String text;
 
@@ -168,7 +111,6 @@ class QuestionWidget extends StatelessWidget {
       child: Container(
         height: MediaQuery.of(context).size.height / 3,
         padding: EdgeInsets.all(8.0),
-        margin: EdgeInsets.all(8.0),
         child: Align(
           child: Text(
             text,
@@ -197,6 +139,10 @@ class AnswerWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: MaterialButton(
+          clipBehavior: Clip.hardEdge,
+          shape: BeveledRectangleBorder(
+            borderRadius: BorderRadiusDirectional.all(Radius.circular(32.0)),
+          ),
           onPressed: dispatcher,
           child: Container(
             padding: EdgeInsets.all(8.0),

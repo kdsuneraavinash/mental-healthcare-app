@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:mental_healthcare_app/logic/trivia_qa.dart';
+import 'package:mental_healthcare_app/logic/trivia_qa/answer.dart';
+import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 import 'package:rxdart/subjects.dart';
 
 class TriviaQABLoC {
@@ -45,7 +46,7 @@ class TriviaQABLoC {
       _score += 40;
       _scoreStreamController.add(_score);
       _loadNewQuestion();
-    }else{
+    } else {
       _score -= 30;
     }
     _scoreStreamController.add(_score);
