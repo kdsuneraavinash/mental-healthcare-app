@@ -6,6 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 
@@ -19,7 +20,11 @@ void main() {
     expect(await TriviaQuestion.fromOpenDB(), allOf([isNotNull]));
   });
 
-  test("Checking if test Doctors load successfully", () {
+  test("Checking if test Doctors loaded successfully", () {
     expect(Doctor.loadTestDoctors(), allOf([isNotNull]));
+  });
+
+  test("Checking if test Clinic Locations loaded successfully", () {
+    expect(ClinicLocation.getTestLocations(), allOf([isNotNull]));
   });
 }
