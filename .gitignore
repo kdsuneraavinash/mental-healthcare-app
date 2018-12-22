@@ -70,4 +70,4 @@ build/
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 lib/sensitive_data.dart
-android/app/src/main/res/values/sensitive_data.xml
+android/app/src/main/AndroidManifest.xml
