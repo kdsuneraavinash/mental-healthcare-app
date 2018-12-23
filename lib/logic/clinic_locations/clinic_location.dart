@@ -7,7 +7,7 @@ const double MAX_BOTTOM_LEFT_LATITUDE = 5.285498;
 
 const double SRILANKA_LONGITUDE = 80.7718;
 const double SRILANKA_LATITUDE = 7.8731;
-const double SRILANKA_ZOOM = 7.7;
+const double SRILANKA_ZOOM = 7.4;
 
 class ClinicLocation {
   final double _longitude;
@@ -53,7 +53,6 @@ class ClinicLocation {
   static List<ClinicLocation> getTestLocations() {
     List<ClinicLocation> locations =
         getJsonLocations().map((v) => ClinicLocation.fromJson(v)).toList();
-    print(locations);
     return locations;
   }
 

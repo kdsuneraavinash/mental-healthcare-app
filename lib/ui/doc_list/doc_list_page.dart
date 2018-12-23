@@ -117,21 +117,24 @@ class ContactButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width - 40) / 3;
-    return Container(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          onTap: (data == null)
-              ? null
-              : () => ContactHelper.launchAction(data, launchMethod),
-          child: Container(
-            height: 50.0,
-            width: width,
-            child: Icon(icon),
+    return Opacity(
+      opacity: (data == null) ? 0.7 : 1.0,
+      child: Container(
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: (data == null)
+                ? null
+                : () => ContactHelper.launchAction(data, launchMethod),
+            child: Container(
+              height: 50.0,
+              width: width,
+              child: Icon(icon),
+            ),
           ),
         ),
+        color: (data == null) ? theme.UIColors.doctorDisabledColor : color,
       ),
-      color: (data == null) ? theme.UIColors.doctorDisabledColor : color,
     );
   }
 }

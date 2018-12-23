@@ -39,7 +39,7 @@ class _PermissionGateState extends State<PermissionGate> {
             Container(
               child: Center(
                 child: Text(
-                  "Disabled on this OS",
+                  "Turn ON Location Settings",
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
                 ),
               ),

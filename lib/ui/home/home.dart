@@ -14,10 +14,13 @@ class HomePage extends StatelessWidget {
         body: GridView.count(
           crossAxisCount: 2,
           children: <Widget>[
-            IconGridTile(
-              footerText: "Send us your problem",
-              color: Colors.blue,
-              icon: FontAwesomeIcons.handsHelping,
+            Opacity(
+              opacity: 0.7,
+              child: IconGridTile(
+                footerText: "Send us your problem",
+                color: Colors.blue,
+                icon: FontAwesomeIcons.handsHelping,
+              ),
             ),
             IconGridTile(
               footerText: "Consultants & Psychiatrists in Sri Lanka",
@@ -39,10 +42,13 @@ class HomePage extends StatelessWidget {
                   ..start(context);
               },
             ),
-            IconGridTile(
-              footerText: "Read Articles on mental health",
-              color: Colors.red,
-              icon: FontAwesomeIcons.newspaper,
+            Opacity(
+              opacity: 0.7,
+              child: IconGridTile(
+                footerText: "Read Articles on mental health",
+                color: Colors.red,
+                icon: FontAwesomeIcons.newspaper,
+              ),
             ),
             IconGridTile(
               footerText: "Trivia Questions on Mental Health",
@@ -54,10 +60,13 @@ class HomePage extends StatelessWidget {
                   ..start(context);
               },
             ),
-            IconGridTile(
-              footerText: "Settings",
-              color: Colors.blueGrey,
-              icon: FontAwesomeIcons.cogs,
+            Opacity(
+              opacity: 0.7,
+              child: IconGridTile(
+                footerText: "Settings",
+                color: Colors.blueGrey,
+                icon: FontAwesomeIcons.cogs,
+              ),
             ),
           ],
         ));

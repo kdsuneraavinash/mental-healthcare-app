@@ -70,6 +70,7 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
   }
 
   void _addAllMarkers(List<ClinicLocation> locations) {
+    if (mapController == null) return;
     for (ClinicLocation location in locations) {
       mapController.addMarker(MarkerOptions(
           position: LatLng(location.latitude, location.longitude),

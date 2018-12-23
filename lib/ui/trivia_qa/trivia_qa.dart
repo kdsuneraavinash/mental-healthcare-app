@@ -134,7 +134,7 @@ class AnswerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: answer.state == AnswerState.SELECTED_WRONG ? 0.0 : 1.0,
+      opacity: answer.state == AnswerState.SELECTED_WRONG ? 0.6 : 1.0,
       duration: Duration(milliseconds: 750),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
@@ -143,7 +143,8 @@ class AnswerWidget extends StatelessWidget {
           shape: BeveledRectangleBorder(
             borderRadius: BorderRadiusDirectional.all(Radius.circular(32.0)),
           ),
-          onPressed: dispatcher,
+          onPressed:
+              answer.state == AnswerState.SELECTED_WRONG ? null : dispatcher,
           child: Container(
             padding: EdgeInsets.all(8.0),
             child: Text(
