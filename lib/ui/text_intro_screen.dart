@@ -66,6 +66,7 @@ class TextIntroScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: theme.UITextThemes().introScreenTitleText,
       ),
     );
@@ -76,6 +77,7 @@ class TextIntroScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Text(
         text,
+        textAlign: TextAlign.center,
         style: theme.UITextThemes().introScreenDataText,
       ),
     );

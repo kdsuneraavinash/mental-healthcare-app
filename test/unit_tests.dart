@@ -6,6 +6,8 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mental_healthcare_app/logic/articles/category.dart';
+import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
@@ -20,11 +22,26 @@ void main() {
     expect(await TriviaQuestion.fromOpenDB(), allOf([isNotNull]));
   });
 
-  test("Checking if test Doctors loaded successfully", () {
+  test("Checking if test Doctors loads successfully from local test file", () {
     expect(Doctor.loadTestDoctors(), allOf([isNotNull]));
   });
 
-  test("Checking if test Clinic Locations loaded successfully", () {
+  test(
+      "Checking if test Clinic Locations loads successfully from local test file",
+      () {
     expect(ClinicLocation.getTestLocations(), allOf([isNotNull]));
+  });
+
+  test("Checking if test Categories load successfully from local test file",
+      () {
+    expect(Category.getTestCategories(), allOf([isNotNull]));
+  });
+
+  test("Checking if test Posts load successfully from local test file", () {
+    expect(Post.getTestPosts(), allOf([isNotNull]));
+  });
+
+  test("Checking if test Categories load successfully from web", () async {
+    expect(await Category.getCategoriesFromWeb(), allOf([isNotNull]));
   });
 }

@@ -139,10 +139,6 @@ class AnswerWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: MaterialButton(
-          clipBehavior: Clip.hardEdge,
-          shape: BeveledRectangleBorder(
-            borderRadius: BorderRadiusDirectional.all(Radius.circular(32.0)),
-          ),
           onPressed:
               answer.state == AnswerState.SELECTED_WRONG ? null : dispatcher,
           child: Container(

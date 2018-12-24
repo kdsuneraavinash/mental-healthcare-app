@@ -35,11 +35,12 @@ class Doctor {
 
   @override
   String toString() {
-    return "\n"
-        "Name      : $name\n"
-        "Gender    : $sex\n"
-        "Institute: $institute\n"
-        "Email    : $email\n"
-        "Tel      : $contactNumber\n";
+    return {
+      "Name": name,
+      "Gender": sex,
+      "Institute": institute,
+      "Email": email,
+      "Tel": contactNumber
+    }.toString();
   }
 }

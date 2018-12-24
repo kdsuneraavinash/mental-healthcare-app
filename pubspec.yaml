@@ -16,7 +16,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^0.1.2
   rxdart: ^0.20.0
   http: ^0.12.0
   html_unescape: ^1.0.1+2
@@ -24,6 +23,7 @@ dependencies:
   url_launcher: ^4.0.3
   google_maps_flutter: ^0.0.3+3
   permission_handler: ^2.1.2
+  flutter_webview_plugin: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:

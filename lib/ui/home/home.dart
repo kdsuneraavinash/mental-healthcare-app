@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/clinic_locations/clinic_location_intro.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
           crossAxisCount: 2,
           children: <Widget>[
             Opacity(
-              opacity: 0.7,
+              opacity: 0.5,
               child: IconGridTile(
                 footerText: "Send us your problem",
                 color: Colors.blue,
@@ -42,13 +43,15 @@ class HomePage extends StatelessWidget {
                   ..start(context);
               },
             ),
-            Opacity(
-              opacity: 0.7,
-              child: IconGridTile(
-                footerText: "Read Articles on mental health",
-                color: Colors.red,
-                icon: FontAwesomeIcons.newspaper,
-              ),
+            IconGridTile(
+              footerText: "Read Articles on mental health",
+              color: Colors.red,
+              icon: FontAwesomeIcons.newspaper,
+              destinationPageCall: () {
+                TransitionMaker.slideTransition(
+                    destinationPageCall: () => CategoryView())
+                  ..start(context);
+              },
             ),
             IconGridTile(
               footerText: "Trivia Questions on Mental Health",
@@ -61,7 +64,7 @@ class HomePage extends StatelessWidget {
               },
             ),
             Opacity(
-              opacity: 0.7,
+              opacity: 0.5,
               child: IconGridTile(
                 footerText: "Settings",
                 color: Colors.blueGrey,
@@ -88,7 +91,7 @@ class IconGridTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 4.0),
       child: InkWell(
         onTap: destinationPageCall,
         child: GridTile(
@@ -103,6 +106,7 @@ class IconGridTile extends StatelessWidget {
           footer: Opacity(
             opacity: 0.8,
             child: Container(
+              height: 50.0,
               color: theme.UIColors.homeGridFooterBackgroundColor,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),

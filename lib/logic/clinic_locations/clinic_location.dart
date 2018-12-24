@@ -55,12 +55,14 @@ class ClinicLocation {
 
   @override
   String toString() {
-    return "\nlongitude: $longitude\n"
-        "latitude: $latitude\n"
-        "start_time: $startTime\n"
-        "end_time: $endTime\n"
-        "address: $address\n"
-        "id: $id\n"
-        "about: $about\n";
+    return {
+      "\nlongitude": longitude,
+      "latitude": latitude,
+      "start_time": startTime,
+      "end_time": endTime,
+      "address": address,
+      "id": id,
+      "about": about
+    }.toString();
   }
 }

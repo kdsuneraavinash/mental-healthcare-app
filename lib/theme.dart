@@ -34,6 +34,10 @@ class UIColors {
   static const Color doctorAvatarMaleColor = const Color(0xFF1565C0);
   static const Color doctorAvatarFemaleColor = Colors.pink;
   static const Color doctorAvatarIconColor = Colors.white;
+
+  static const Color articleColor = Colors.red;
+  static const Color articlesOverlayColor = Colors.black;
+  static const Color articlesHeaderColor = Color(0xFF455A64);
 }
 
 class UITextThemes {
@@ -72,6 +76,18 @@ class UITextThemes {
     color: Colors.black,
     fontWeight: FontWeight.w400,
     fontSize: 14.0,
+  );
+
+  TextStyle articleTopBarBackgroundText = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w400,
+    fontSize: 16.0,
+    letterSpacing: 1.0,
+  );
+
+  TextStyle articleHeaderText = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w700,
   );
 }
 
