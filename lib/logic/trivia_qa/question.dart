@@ -4,12 +4,12 @@ import 'package:meta/meta.dart';
 /// Class to hold the question text
 @immutable
 class Question {
-  final String _text;
+  final String text;
 
-  Question(text) : this._text = HtmlUnescape().convert(text);
+  Question(text) : this.text = HtmlUnescape().convert(text);
 
   @override
   String toString() {
-    return this._text;
+    return this.text;
   }
 }

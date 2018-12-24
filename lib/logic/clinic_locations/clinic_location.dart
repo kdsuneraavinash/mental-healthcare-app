@@ -10,30 +10,22 @@ const double SRILANKA_LATITUDE = 7.8731;
 const double SRILANKA_ZOOM = 7.4;
 
 class ClinicLocation {
-  final double _longitude;
-  final double _latitude;
-  final String _startTime;
-  final String _endTime;
-  final String _address;
-  final String _about;
-  final String _id;
-
-  double get longitude => _longitude;
-  double get latitude => _latitude;
-  String get startTime => _startTime;
-  String get endTime => _endTime;
-  String get address => _address;
-  String get about => _about;
-  String get id => _id;
+  final double longitude;
+  final double latitude;
+  final String startTime;
+  final String endTime;
+  final String address;
+  final String about;
+  final String id;
 
   ClinicLocation(
-    this._longitude,
-    this._latitude,
-    this._startTime,
-    this._endTime,
-    this._address,
-    this._about,
-    this._id,
+    this.longitude,
+    this.latitude,
+    this.startTime,
+    this.endTime,
+    this.address,
+    this.about,
+    this.id,
   );
 
   factory ClinicLocation.fromJson(Map<String, dynamic> map) {
@@ -63,12 +55,12 @@ class ClinicLocation {
 
   @override
   String toString() {
-    return "\nlongitude: $_longitude\n"
-        "latitude: $_latitude\n"
-        "start_time: $_startTime\n"
-        "end_time: $_endTime\n"
-        "address: $_address\n"
-        "id: $_id\n"
-        "about: $_about\n";
+    return "\nlongitude: $longitude\n"
+        "latitude: $latitude\n"
+        "start_time: $startTime\n"
+        "end_time: $endTime\n"
+        "address: $address\n"
+        "id: $id\n"
+        "about: $about\n";
   }
 }

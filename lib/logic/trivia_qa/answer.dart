@@ -6,25 +6,25 @@ enum AnswerState { UNSELECTED, SELECTED_CORRECT, SELECTED_WRONG }
 /// Class to create answer objects.
 /// Will hold correctness and whether answer was checked.
 class Answer {
-  final String _text;
-  final bool _correct;
+  final String text;
+  final bool correct;
   bool _checked;
 
-  Answer(text, this._correct) : this._text = HtmlUnescape().convert(text) {
+  Answer(text, this.correct) : this.text = HtmlUnescape().convert(text) {
     _checked = false;
   }
 
   /// Check answer for correctness. This will mark the answer as checked.
   bool checkIfCorrect() {
     _checked = true;
-    return _correct;
+    return correct;
   }
 
   /// Get current answer state
   AnswerState get state {
     if (!_checked) {
       return AnswerState.UNSELECTED;
-    } else if (_correct) {
+    } else if (correct) {
       return AnswerState.SELECTED_CORRECT;
     } else {
       return AnswerState.SELECTED_WRONG;
@@ -32,5 +32,5 @@ class Answer {
   }
 
   @override
-  String toString() => this._text;
+  String toString() => this.text;
 }

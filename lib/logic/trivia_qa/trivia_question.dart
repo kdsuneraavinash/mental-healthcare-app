@@ -10,15 +10,9 @@ import 'dart:convert' as JSON;
 /// Correct answer is not visible and is available only through [isCorrect()]
 /// method.
 class TriviaQuestion {
-  final Question _question;
-  final List<Answer> _answers;
+  final Question question;
+  final List<Answer> answers;
   int _attempts;
-
-  /// get question object
-  Question get question => this._question;
-
-  /// get answer object
-  List<Answer> get answers => this._answers;
 
   /// Get number of attempts
   int get attempts => this._attempts;
@@ -30,7 +24,7 @@ class TriviaQuestion {
     return answer.checkIfCorrect();
   }
 
-  TriviaQuestion(this._question, this._answers) {
+  TriviaQuestion(this.question, this.answers) {
     _attempts = 0;
   }
 
