@@ -16,6 +16,7 @@ class ClinicLocation {
   final String _endTime;
   final String _address;
   final String _about;
+  final String _id;
 
   double get longitude => _longitude;
   double get latitude => _latitude;
@@ -23,6 +24,7 @@ class ClinicLocation {
   String get endTime => _endTime;
   String get address => _address;
   String get about => _about;
+  String get id => _id;
 
   ClinicLocation(
     this._longitude,
@@ -31,6 +33,7 @@ class ClinicLocation {
     this._endTime,
     this._address,
     this._about,
+    this._id,
   );
 
   factory ClinicLocation.fromJson(Map<String, dynamic> map) {
@@ -40,6 +43,7 @@ class ClinicLocation {
     String endTime = map["end_time"];
     String address = map["address"];
     String about = map["about"];
+    String id = map["id"];
     return ClinicLocation(
       longitude,
       latitude,
@@ -47,6 +51,7 @@ class ClinicLocation {
       endTime,
       address,
       about,
+      id,
     );
   }
 
@@ -63,6 +68,7 @@ class ClinicLocation {
         "start_time: $_startTime\n"
         "end_time: $_endTime\n"
         "address: $_address\n"
+        "id: $_id\n"
         "about: $_about\n";
   }
 }

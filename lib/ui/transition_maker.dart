@@ -72,6 +72,18 @@ class TransitionMaker {
     );
   }
 
+  void startReplacePush(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (_, __, ___) {
+          return this.destinationPageCall();
+        },
+        transitionsBuilder: this.transitionBuilder,
+      ),
+    );
+  }
+
   void startPopAllAndPush(BuildContext context) {
     while (Navigator.of(context).canPop()) {
       Navigator.of(context).pop();

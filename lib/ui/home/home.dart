@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mental_healthcare_app/ui/clinic_loactions/clinic_location_map.dart';
+import 'package:mental_healthcare_app/ui/clinic_locations/clinic_location_intro.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
-import 'package:mental_healthcare_app/ui/trivia_qa/trivia_qa.dart';
+import 'package:mental_healthcare_app/ui/trivia_qa/trivia_start.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
               icon: FontAwesomeIcons.hospital,
               destinationPageCall: () {
                 TransitionMaker.slideTransition(
-                    destinationPageCall: () => ClinicLocationMap())
+                    destinationPageCall: () => ClinicLocationIntro())
                   ..start(context);
               },
             ),
@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
               icon: FontAwesomeIcons.question,
               destinationPageCall: () {
                 TransitionMaker.slideTransition(
-                    destinationPageCall: () => TriviaQA())
+                    destinationPageCall: () => TriviaStartPage())
                   ..start(context);
               },
             ),

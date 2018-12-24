@@ -20,6 +20,12 @@ class UIColors {
   static const Color triviaLoadingBackgroundColor = const Color(0xFFFEFEFE);
   static const Color triviaLoadingSpinnerColor = const Color(0xFF4e4376);
 
+  static const Color clinicColor = Colors.brown;
+  static const Color clinicFabColor = const Color(0xFF2c3e50);
+  static const Color clinicFabIconColor = Colors.white;
+  static const Color clinicOverlayTextColor = Colors.white;
+  static const Color clinicOverlayColor = Color(0xDD000000);
+
   static const Color doctorColor = Colors.green;
   static const Color doctorCallColor = Colors.green;
   static const Color doctorMessageColor = Colors.orange;
@@ -42,6 +48,18 @@ class UITextThemes {
     color: Colors.white,
     fontSize: 16.0,
     fontWeight: FontWeight.w500,
+  );
+
+  TextStyle introScreenTitleText = TextStyle(
+    fontSize: 22.0,
+    fontWeight: FontWeight.w800,
+    letterSpacing: 1.0,
+  );
+
+  TextStyle introScreenDataText = TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.w400,
+    letterSpacing: 0.5,
   );
 
   TextStyle doctorNameText = TextStyle(
