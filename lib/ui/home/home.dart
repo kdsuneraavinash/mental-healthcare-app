@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
-import 'package:mental_healthcare_app/ui/clinic_locations/clinic_location_intro.dart';
+import 'package:mental_healthcare_app/ui/clinic_locations/clinic_location_map.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
+import 'package:mental_healthcare_app/ui/home/home_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
 import 'package:mental_healthcare_app/ui/trivia_qa/trivia_start.dart';
 
@@ -11,114 +12,99 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Mental Health Care App"),),
-        body: GridView.count(
-          crossAxisCount: 2,
-          children: <Widget>[
-            Opacity(
-              opacity: 0.5,
-              child: IconGridTile(
-                footerText: "Send us your problem",
-                color: Colors.blue,
-                icon: FontAwesomeIcons.handsHelping,
-              ),
-            ),
-            IconGridTile(
-              footerText: "Consultants & Psychiatrists in Sri Lanka",
-              color: theme.UIColors.doctorColor,
-              icon: FontAwesomeIcons.userMd,
-              destinationPageCall: () {
-                TransitionMaker.slideTransition(
-                    destinationPageCall: () => DocListPage())
-                  ..start(context);
-              },
-            ),
-            IconGridTile(
-              footerText: "See near clinic locations",
-              color: Colors.brown,
-              icon: FontAwesomeIcons.hospital,
-              destinationPageCall: () {
-                TransitionMaker.slideTransition(
-                    destinationPageCall: () => ClinicLocationIntro())
-                  ..start(context);
-              },
-            ),
-            IconGridTile(
-              footerText: "Read Articles on mental health",
-              color: Colors.red,
-              icon: FontAwesomeIcons.newspaper,
-              destinationPageCall: () {
-                TransitionMaker.slideTransition(
-                    destinationPageCall: () => CategoryView())
-                  ..start(context);
-              },
-            ),
-            IconGridTile(
-              footerText: "Trivia Questions on Mental Health",
-              color: theme.UIColors.triviaColor,
-              icon: FontAwesomeIcons.question,
-              destinationPageCall: () {
-                TransitionMaker.slideTransition(
-                    destinationPageCall: () => TriviaStartPage())
-                  ..start(context);
-              },
-            ),
-            Opacity(
-              opacity: 0.5,
-              child: IconGridTile(
-                footerText: "Settings",
-                color: Colors.blueGrey,
-                icon: FontAwesomeIcons.cogs,
-              ),
-            ),
-          ],
-        ));
-  }
-}
-
-class IconGridTile extends StatelessWidget {
-  final String footerText;
-  final Color color;
-  final IconData icon;
-  final VoidCallback destinationPageCall;
-
-  IconGridTile(
-      {@required this.footerText,
-      @required this.color,
-      @required this.icon,
-      this.destinationPageCall});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(4.0, 4.0, 4.0, 4.0),
-      child: InkWell(
-        onTap: destinationPageCall,
-        child: GridTile(
-          child: Container(
-            color: color,
-            child: Icon(
-              icon,
-              size: MediaQuery.of(context).size.width / 5,
-              color: theme.UIColors.homeGridIconColor,
-            ),
-          ),
-          footer: Opacity(
-            opacity: 0.8,
-            child: Container(
-              height: 50.0,
-              color: theme.UIColors.homeGridFooterBackgroundColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  footerText,
-                  style: TextStyle(color: theme.UIColors.homeGridFooterTextColor),
-                ),
-              ),
-            ),
-          ),
+      appBar: AppBar(
+        title: Text("Sanasuma App"),
+      ),
+      body: HomePageContent(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          physics: ClampingScrollPhysics(),
+          children: [_buildDrawerHeading()] + _buildDrawerActions(context),
         ),
       ),
+    );
+  }
+
+  Widget _buildDrawerHeading() {
+    return UserAccountsDrawerHeader(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/drawer-header.jpg"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              theme.UIColors.primaryColor.withAlpha(0xCC),
+              BlendMode.srcATop,
+            ),
+          ),
+          color: theme.UIColors.primaryColor),
+      accountEmail: Text("user@sahanaya.com"),
+      accountName: Text("User"),
+      currentAccountPicture: CircleAvatar(
+        child: Icon(FontAwesomeIcons.user),
+      ),
+    );
+  }
+
+  List<Widget> _buildDrawerActions(BuildContext context) {
+    return [
+      _buildDrawerListTile(
+        title: "Read Articles",
+        subtitle: "Spread Awareness",
+        icon: FontAwesomeIcons.newspaper,
+        destinationCallBack: () => TransitionMaker.slideTransition(
+              destinationPageCall: () => CategoryView(),
+            )..start(context),
+      ),
+      _buildDrawerListTile(
+        title: "Consultants & Psychiatrists",
+        subtitle: "Contact Consultants",
+        icon: FontAwesomeIcons.handsHelping,
+        destinationCallBack: () => TransitionMaker.slideTransition(
+              destinationPageCall: () => DocListPage(),
+            )..start(context),
+      ),
+      _buildDrawerListTile(
+        title: "Clinic Locations",
+        subtitle: "View mental health clinics",
+        icon: FontAwesomeIcons.map,
+        destinationCallBack: () => TransitionMaker.slideTransition(
+              destinationPageCall: () => ClinicLocationMap(),
+            )..start(context),
+      ),
+      _buildDrawerListTile(
+        title: "Trivia Questions",
+        subtitle: "Test your knowledge",
+        icon: FontAwesomeIcons.question,
+        destinationCallBack: () => TransitionMaker.slideTransition(
+              destinationPageCall: () => TriviaStartPage(),
+            )..start(context),
+      ),
+      Divider(),
+      _buildDrawerListTile(
+        title: "Settings",
+        subtitle: "Adjust settings",
+        icon: FontAwesomeIcons.cogs,
+        iconColor: Colors.black87,
+      ),
+    ];
+  }
+
+  Widget _buildDrawerListTile({
+    @required String title,
+    @required String subtitle,
+    @required IconData icon,
+    Color iconColor,
+    VoidCallback destinationCallBack,
+  }) {
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(subtitle),
+      leading: Icon(
+        icon,
+        color: iconColor ?? theme.UIColors.accentColor,
+      ),
+      onTap: destinationCallBack,
     );
   }
 }

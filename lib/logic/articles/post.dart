@@ -1,3 +1,4 @@
+import 'package:html_unescape/html_unescape.dart';
 import 'package:http/http.dart' as HTTP;
 import 'dart:convert' as JSON;
 
@@ -25,12 +26,13 @@ class Post {
 
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
-        id: map["id"],
-        date: map["date"],
-        link: map["link"],
-        slug: map["slug"],
-        title: map["title"]["rendered"],
-        excerpt: map["excerpt"]["rendered"]);
+      id: map["id"],
+      date: map["date"],
+      link: map["link"],
+      slug: map["slug"],
+      title: HtmlUnescape().convert(map["title"]["rendered"]),
+      excerpt: HtmlUnescape().convert(map["excerpt"]["rendered"]),
+    );
   }
 
   static List<Post> getPostsFromJson(List<Map<String, dynamic>> postMaps) {

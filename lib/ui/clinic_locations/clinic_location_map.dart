@@ -28,99 +28,111 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Clinic Locations"),
-        backgroundColor: theme.UIColors.clinicColor,
+        backgroundColor: theme.UIColors.primaryColor,
       ),
-      body: Stack(
-        children: <Widget>[
-          PermissionGate(
-            permissionRequestText: "Grant Location Access",
-            permission: PermissionGroup.location,
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: GoogleMap(
-                options: GoogleMapOptions(
-                  myLocationEnabled: true,
-                  cameraTargetBounds: CameraTargetBounds(
-                    LatLngBounds(
-                      southwest: LatLng(
-                          MAX_BOTTOM_LEFT_LATITUDE, MAX_BOTTOM_LEFT_LONGITUDE),
-                      northeast: LatLng(
-                          MAX_TOP_RIGHT_LATITUDE, MAX_TOP_RIGHT_LONGITUDE),
-                    ),
-                  ),
-                  cameraPosition: CameraPosition(
-                    target: LatLng(SRILANKA_LATITUDE, SRILANKA_LONGITUDE),
-                    zoom: SRILANKA_ZOOM,
+      body: StreamBuilder(
+        stream: bloc.startWindowStream,
+        builder: (_, snapshot) => (snapshot.hasData && snapshot.data)
+            ? _buildGoogleMap()
+            : Center(child: CircularProgressIndicator()),
+      ),
+    );
+  }
+
+  Widget _buildGoogleMap() {
+    return Stack(
+      children: <Widget>[
+        PermissionGate(
+          permissionRequestText: "Grant Location Access",
+          permission: PermissionGroup.location,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: GoogleMap(
+              options: GoogleMapOptions(
+                myLocationEnabled: true,
+                cameraTargetBounds: CameraTargetBounds(
+                  LatLngBounds(
+                    southwest: LatLng(
+                        MAX_BOTTOM_LEFT_LATITUDE, MAX_BOTTOM_LEFT_LONGITUDE),
+                    northeast:
+                        LatLng(MAX_TOP_RIGHT_LATITUDE, MAX_TOP_RIGHT_LONGITUDE),
                   ),
                 ),
-                onMapCreated: _onGoogleMapCreated,
+                cameraPosition: CameraPosition(
+                  target: LatLng(SRILANKA_LATITUDE, SRILANKA_LONGITUDE),
+                  zoom: SRILANKA_ZOOM,
+                ),
               ),
+              onMapCreated: _onGoogleMapCreated,
             ),
           ),
-          Positioned(
-            top: 0.0,
-            width: MediaQuery.of(context).size.width,
-            child: StreamBuilder<ClinicLocation>(
-                stream: bloc.selectedLocationStream,
-                builder: (_, snapshot) {
-                  bool loaded = snapshot.hasData && snapshot.data != null;
-                  return IgnorePointer(
-                    ignoring: !loaded,
-                    child: AnimatedOpacity(
-                      opacity: loaded ? 0.8 : 0.0,
-                      duration: Duration(seconds: 1),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Card(
-                          color: theme.UIColors.clinicOverlayColor,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: <Widget>[
-                                ListTile(
-                                  leading: Icon(FontAwesomeIcons.hospitalSymbol,
-                                      color: theme
-                                          .UIColors.clinicOverlayTextColor),
-                                  title: Text(
-                                    loaded
-                                        ? "Time ${snapshot.data.startTime} : ${snapshot.data.endTime}"
-                                        : "",
-                                    style: TextStyle(
-                                        color: theme
-                                            .UIColors.clinicOverlayTextColor),
-                                  ),
-                                  subtitle: Text(
-                                    loaded ? snapshot.data.address : "",
-                                    style: TextStyle(
-                                        color: theme
-                                            .UIColors.clinicOverlayTextColor),
-                                  ),
-                                  trailing: IconButton(
-                                      icon: Icon(FontAwesomeIcons.times,
-                                          color: theme
-                                              .UIColors.clinicOverlayTextColor),
-                                      onPressed: () {
-                                        bloc.mapMarkerSelectedSink.add(null);
-                                      }),
+        ),
+        Positioned(
+          top: 0.0,
+          width: MediaQuery.of(context).size.width,
+          child: StreamBuilder<ClinicLocation>(
+              stream: bloc.selectedLocationStream,
+              builder: (_, snapshot) {
+                bool loaded = snapshot.hasData && snapshot.data != null;
+                return IgnorePointer(
+                  ignoring: !loaded,
+                  child: Opacity(
+                    opacity: loaded ? 1.0 : 0.0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
+                        color: theme.UIColors.secondaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: <Widget>[
+                              ListTile(
+                                leading: Icon(
+                                  FontAwesomeIcons.hospitalSymbol,
+                                  color: theme.UITextThemes()
+                                      .clinicOverlayText
+                                      .color,
                                 ),
-                                Text(
-                                  loaded ? snapshot.data.about : "",
-                                  style: TextStyle(
-                                      color: theme
-                                          .UIColors.clinicOverlayTextColor),
-                                )
-                              ],
-                            ),
+                                title: Text(
+                                  loaded
+                                      ? "Time ${snapshot.data.startTime} : ${snapshot.data.endTime}"
+                                      : "",
+                                  style: theme.UITextThemes().clinicOverlayText,
+                                ),
+                                subtitle: Text(
+                                  loaded ? snapshot.data.address : "",
+                                  style: theme.UITextThemes().clinicOverlayText,
+                                ),
+                                trailing: IconButton(
+                                    icon: Icon(
+                                      FontAwesomeIcons.times,
+                                      color: theme.UITextThemes()
+                                          .clinicOverlayText
+                                          .color,
+                                    ),
+                                    onPressed: () {
+                                      bloc.mapMarkerSelectedSink.add(null);
+                                    }),
+                              ),
+                              Text(
+                                loaded ? snapshot.data.about : "",
+                                style: TextStyle(
+                                  color: theme.UITextThemes()
+                                      .clinicOverlayText
+                                      .color,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
                     ),
-                  );
-                }),
-          ),
-        ],
-      ),
+                  ),
+                );
+              }),
+        ),
+      ],
     );
   }
 

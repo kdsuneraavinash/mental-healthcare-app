@@ -5,9 +5,6 @@ import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/contact_helper.dart';
 
-/// * This is the Whole page for psychiatrist list.
-/// Contains a list with each psychiatrist's name and a short description.
-///
 /// TODO: Connect with a database to retrieve data.
 class DocListPage extends StatelessWidget {
   DocListPage();
@@ -17,18 +14,13 @@ class DocListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Consultants/Psychiatrists in Sri Lanka"),
-        backgroundColor: theme.UIColors.doctorColor,
+        backgroundColor: theme.UIColors.primaryColor,
       ),
       body: DocListPageContent(DocListBLoC()),
     );
   }
 }
 
-/// Contains State of Content.
-///
-/// At the moment this will also create doctors to hold all doctor info.
-///
-/// TODO: Remove manually adding to doctors and use Databases instead.
 class DocListPageContent extends StatelessWidget {
   final DocListBLoC bloc;
 
@@ -43,57 +35,51 @@ class DocListPageContent extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (_, index) {
                 Doctor doctor = snapshot.data[index];
-
-                return ExpansionTile(
-                  key: Key("Doctor:" + index.toString()),
+                return ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: doctor.sex == Sex.MALE
-                        ? theme.UIColors.doctorAvatarMaleColor
-                        : theme.UIColors.doctorAvatarFemaleColor,
+                    backgroundColor: theme.UIColors.accentColor,
                     child: Icon(
                       doctor.sex == Sex.MALE
                           ? FontAwesomeIcons.male
                           : FontAwesomeIcons.female,
-                      color: theme.UIColors.doctorAvatarIconColor,
+                      color: theme.UIColors.avatarIconColor,
                     ),
                   ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(doctor.name,
-                          style: theme.UITextThemes().doctorNameText),
-                      Text(doctor.institute,
-                          style: theme.UITextThemes().doctorInstituteText),
-                    ],
-                  ),
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          ContactButton(
-                            icon: FontAwesomeIcons.phone,
-                            launchMethod: LaunchMethod.CALL,
-                            data: doctor.contactNumber,
-                            color: theme.UIColors.doctorCallColor,
+                  title: Text(doctor.name),
+                  subtitle: Text(doctor.institute),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => Dialog(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(32.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  ContactButton(
+                                    icon: FontAwesomeIcons.phone,
+                                    launchMethod: LaunchMethod.CALL,
+                                    data: doctor.contactNumber,
+                                    color: theme.UIColors.doctorCallColor,
+                                  ),
+                                  ContactButton(
+                                    icon: FontAwesomeIcons.comment,
+                                    launchMethod: LaunchMethod.MESSAGE,
+                                    data: doctor.contactNumber,
+                                    color: theme.UIColors.doctorMessageColor,
+                                  ),
+                                  ContactButton(
+                                    icon: FontAwesomeIcons.at,
+                                    launchMethod: LaunchMethod.MAIL,
+                                    data: doctor.email,
+                                    color: theme.UIColors.doctorEmailColor,
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
-                          ContactButton(
-                            icon: FontAwesomeIcons.comment,
-                            launchMethod: LaunchMethod.MESSAGE,
-                            data: doctor.contactNumber,
-                            color: theme.UIColors.doctorMessageColor,
-                          ),
-                          ContactButton(
-                            icon: FontAwesomeIcons.at,
-                            launchMethod: LaunchMethod.MAIL,
-                            data: doctor.email,
-                            color: theme.UIColors.doctorEmailColor,
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                    );
+                  },
                 );
               },
             )
@@ -101,6 +87,9 @@ class DocListPageContent extends StatelessWidget {
     );
   }
 }
+/*
+
+ */
 
 class ContactButton extends StatelessWidget {
   final IconData icon;
@@ -116,25 +105,23 @@ class ContactButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = (MediaQuery.of(context).size.width - 40) / 3;
-    return Opacity(
-      opacity: (data == null) ? 0.7 : 1.0,
-      child: Container(
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: (data == null)
-                ? null
-                : () => ContactHelper.launchAction(data, launchMethod),
-            child: Container(
-              height: 50.0,
-              width: width,
-              child: Icon(icon),
-            ),
+    if (data == null) return Container();
+
+    return Container(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: (data == null)
+              ? null
+              : () => ContactHelper.launchAction(data, launchMethod),
+          child: Container(
+            height: 75.0,
+            width: MediaQuery.of(context).size.width,
+            child: Icon(icon),
           ),
         ),
-        color: (data == null) ? theme.UIColors.doctorDisabledColor : color,
       ),
+      color: (data == null) ? theme.UIColors.doctorDisabledColor : color,
     );
   }
 }

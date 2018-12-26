@@ -7,10 +7,9 @@ class TriviaStartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextIntroScreen(
-      appBarColor: theme.UIColors.triviaColor,
+      appBarColor: theme.UIColors.primaryColor,
       appBarTitleText: "Trivia Start Page",
-      fabColor: theme.UIColors.triviaAnswerBackgroundColor,
-      fabIconColor: theme.UITextThemes().triviaAnswerText.color,
+      fabColor: theme.UIColors.accentColor,
       pageCall: () => TriviaQA(),
       faqs: <FAQBlock>[
         FAQBlock(

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mental HealthCare',
+      title: 'Sanasuma',
       theme: theme.UITheme.build(),
       home: HomePage()
     );

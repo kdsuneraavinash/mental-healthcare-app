@@ -18,6 +18,10 @@ class ClinicLocationMapBLoC {
   Stream<ClinicLocation> get selectedLocationStream =>
       _selectedLocationStreamController.stream;
 
+  StreamController<bool> _startWindowStreamController =
+      BehaviorSubject(seedValue: false);
+  Stream<bool> get startWindowStream => _startWindowStreamController.stream;
+
   // In Streams
   StreamController<bool> _mapLoadedStreamController =
       BehaviorSubject(seedValue: false);
@@ -33,10 +37,15 @@ class ClinicLocationMapBLoC {
     _mapLoadedStreamController.close();
     _mapMarkerSelectedStreamController.close();
     _selectedLocationStreamController.close();
+    _startWindowStreamController.close();
   }
 
   ClinicLocationMapBLoC() {
     _clinicLocations = {};
+
+    Future.delayed(Duration(milliseconds: 1200)).then((_) {
+      _startWindowStreamController.add(true);
+    });
 
     _mapLoadedStreamController.stream.listen((v) {
       if (!v) return;

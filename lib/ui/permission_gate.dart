@@ -48,6 +48,7 @@ class _PermissionGateState extends State<PermissionGate> {
       case PermissionStatus.restricted:
         return widget.restrictedWidget ?? widget.child;
       case PermissionStatus.unknown:
+        return Container();
       default:
         return _buildAskPermissionButton(Colors.blue);
     }

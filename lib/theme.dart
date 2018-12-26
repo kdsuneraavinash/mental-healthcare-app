@@ -2,45 +2,35 @@ import 'package:flutter/material.dart';
 
 class UIColors {
   static const Color primaryColor = const Color(0xFF5433FF);
-  static const Color accentColor = const Color(0xFF20BDFF);
+  static const Color accentColor = Colors.red;
+  static const Color iconBackgroundColor = Colors.green;
+  static const Color iconSecondaryBackgroundColor = Colors.black;
+  static const Color secondaryColor = Colors.teal;
+  static const Color avatarIconColor = Colors.white;
+  static const Color splashColor = Colors.amber;
 
-  static const Color homeGridFooterBackgroundColor = Colors.black;
-  static const Color homeGridFooterTextColor = Colors.white;
-  static const Color homeGridIconColor = Colors.white;
-
-  static const Color triviaColor = Colors.deepOrange;
   static const Color triviaAnswerBackgroundColor = const Color(0xFF2c3e50);
-  static const Color triviaAnswerSplashColor = const Color(0xFF2A6BC5);
   static const Color triviaAnswerWrongBackgroundColor = const Color(0xFFDD3E54);
-  static const Color triviaAnswerWrongSplashColor = const Color(0xFFCD2E44);
   static const Color triviaAnswerCorrectBackgroundColor =
       const Color(0xFF11998E);
-  static const Color triviaAnswerCorrectSplashColor = const Color(0xFF01897E);
-  static const Color triviaTimerBackgroundColor = const Color(0xFFB71C1C);
-  static const Color triviaLoadingBackgroundColor = const Color(0xFFFEFEFE);
-  static const Color triviaLoadingSpinnerColor = const Color(0xFF4e4376);
 
-  static const Color clinicColor = Colors.brown;
-  static const Color clinicFabColor = const Color(0xFF2c3e50);
-  static const Color clinicFabIconColor = Colors.white;
-  static const Color clinicOverlayTextColor = Colors.white;
-  static const Color clinicOverlayColor = Color(0xDD000000);
-
-  static const Color doctorColor = Colors.green;
   static const Color doctorCallColor = Colors.green;
   static const Color doctorMessageColor = Colors.orange;
   static const Color doctorEmailColor = Colors.red;
   static const Color doctorDisabledColor = Colors.grey;
-  static const Color doctorAvatarMaleColor = const Color(0xFF1565C0);
-  static const Color doctorAvatarFemaleColor = Colors.pink;
-  static const Color doctorAvatarIconColor = Colors.white;
-
-  static const Color articleColor = Colors.red;
-  static const Color articlesOverlayColor = Colors.black;
-  static const Color articlesHeaderColor = Color(0xFF455A64);
 }
 
 class UITextThemes {
+  TextStyle dialogHeaderText = TextStyle(
+    color: Colors.black,
+    fontSize: 28,
+    fontWeight: FontWeight.w400,
+  );
+
+  TextStyle clinicOverlayText = TextStyle(
+    color: Colors.white,
+  );
+
   TextStyle triviaQuestionText = TextStyle(
     color: Colors.black,
     fontSize: 18.0,
@@ -66,18 +56,6 @@ class UITextThemes {
     letterSpacing: 0.5,
   );
 
-  TextStyle doctorNameText = TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.w800,
-    fontSize: 16.0,
-  );
-
-  TextStyle doctorInstituteText = TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.w400,
-    fontSize: 14.0,
-  );
-
   TextStyle articleTopBarBackgroundText = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.w400,
@@ -87,15 +65,38 @@ class UITextThemes {
 
   TextStyle articleHeaderText = TextStyle(
     color: Colors.white,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w300,
+    fontSize: 18.0,
+  );
+
+  TextStyle mainScreenText = TextStyle(
+    fontWeight: FontWeight.w300,
+    fontSize: 24.0,
   );
 }
 
 class UITheme {
   static ThemeData build() {
     return ThemeData(
-      primaryColor: UIColors.primaryColor,
-      accentColor: UIColors.accentColor,
-    );
+        primaryColor: UIColors.primaryColor,
+        accentColor: UIColors.accentColor,
+        dialogBackgroundColor: Colors.transparent,
+        accentColorBrightness: Brightness.light,
+        brightness: Brightness.light,
+        splashColor: UIColors.splashColor,
+        textTheme: TextTheme(
+          subtitle: TextStyle(fontFamily: "Open Sans"),
+          title: TextStyle(fontFamily: "Open Sans"),
+          body1: TextStyle(fontFamily: "Open Sans"),
+          body2: TextStyle(fontFamily: "Open Sans"),
+          button: TextStyle(fontFamily: "Open Sans"),
+          caption: TextStyle(fontFamily: "Open Sans"),
+          display1: TextStyle(fontFamily: "Open Sans"),
+          display2: TextStyle(fontFamily: "Open Sans"),
+          display3: TextStyle(fontFamily: "Open Sans"),
+          headline: TextStyle(fontFamily: "Open Sans"),
+          overline: TextStyle(fontFamily: "Open Sans"),
+          subhead: TextStyle(fontFamily: "Open Sans"),
+        ));
   }
 }

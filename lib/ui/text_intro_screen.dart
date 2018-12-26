@@ -18,13 +18,14 @@ class TextIntroScreen extends StatelessWidget {
   final Color fabIconColor;
   final VoidCallback pageCall;
 
-  TextIntroScreen(
-      {@required this.appBarTitleText,
-      @required this.appBarColor,
-      @required this.faqs,
-      @required this.fabColor,
-      @required this.fabIconColor,
-      @required this.pageCall});
+  TextIntroScreen({
+    @required this.appBarTitleText,
+    @required this.faqs,
+    @required this.fabIconColor,
+    @required this.pageCall,
+    this.fabColor,
+    this.appBarColor,
+  });
 
   @override
   Widget build(BuildContext context) {

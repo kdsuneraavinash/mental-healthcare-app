@@ -14,7 +14,7 @@ class TriviaQA extends StatelessWidget {
     return Scaffold(
       key: Key("TriviaPage"),
       appBar: AppBar(
-        backgroundColor: theme.UIColors.triviaColor,
+        backgroundColor: theme.UIColors.primaryColor,
         title: StreamBuilder<int>(
           stream: bloc.scoreStream,
           builder: (_, snapshot) => snapshot.hasData
@@ -32,15 +32,12 @@ class TriviaQA extends StatelessWidget {
           ];
           if (isLoading)
             widgets.add(
-              Opacity(
-                opacity: 0.5,
-                child: Container(
-                  color: theme.UIColors.triviaLoadingBackgroundColor,
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation(
-                        theme.UIColors.triviaLoadingSpinnerColor,
-                      ),
+              Container(
+                color: theme.UIColors.primaryColor.withAlpha(0x55),
+                child: Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(
+                      theme.UIColors.accentColor,
                     ),
                   ),
                 ),
@@ -156,11 +153,6 @@ class AnswerWidget extends StatelessWidget {
               : answer.state == AnswerState.SELECTED_WRONG
                   ? theme.UIColors.triviaAnswerWrongBackgroundColor
                   : theme.UIColors.triviaAnswerBackgroundColor,
-          splashColor: answer.state == AnswerState.SELECTED_CORRECT
-              ? theme.UIColors.triviaAnswerCorrectSplashColor
-              : answer.state == AnswerState.SELECTED_WRONG
-                  ? theme.UIColors.triviaAnswerWrongSplashColor
-                  : theme.UIColors.triviaAnswerSplashColor,
           padding: EdgeInsets.all(8.0),
         ),
       ),
