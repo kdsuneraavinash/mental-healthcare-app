@@ -11,6 +11,7 @@ class TriviaStartPage extends StatelessWidget {
       appBarTitleText: "Trivia Start Page",
       fabColor: theme.UIColors.accentColor,
       pageCall: () => TriviaQA(),
+      fabIconColor: Colors.white,
       faqs: <FAQBlock>[
         FAQBlock(
             "What is this Game?",

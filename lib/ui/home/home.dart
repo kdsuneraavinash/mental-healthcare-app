@@ -13,7 +13,48 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sanasuma App"),
+        title: Text("Sahanaya App"),
+        actions: <Widget>[
+          PopupMenuButton(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(FontAwesomeIcons.language, color: Colors.white),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("English", style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+            itemBuilder: (_) => <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0.0),
+                        title: Text('English'),
+                        leading: CircleAvatar(child: Text("En")),
+                      ),
+                      value: 'En'),
+                  PopupMenuItem<String>(
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0.0),
+                        title: Text('සිංහල'),
+                        leading: CircleAvatar(child: Text("සිං")),
+                      ),
+                      value: 'Si'),
+                  PopupMenuItem<String>(
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(0.0),
+                        title: Text('தமிழ்'),
+                        leading: CircleAvatar(child: Text("த")),
+                      ),
+                      value: 'Ta'),
+                ],
+            onSelected: (_) => null,
+          ),
+        ],
       ),
       body: HomePageContent(),
       drawer: Drawer(
@@ -21,6 +62,25 @@ class HomePage extends StatelessWidget {
           padding: EdgeInsets.zero,
           physics: ClampingScrollPhysics(),
           children: [_buildDrawerHeading()] + _buildDrawerActions(context),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildColorButton(Color color, bool isSelected) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Opacity(
+        opacity: isSelected ? 0.7 : 1.0,
+        child: RaisedButton(
+          color: color,
+          onPressed: () => null,
+          child: isSelected
+              ? Icon(
+                  FontAwesomeIcons.check,
+                  color: theme.UIColors.accentColor,
+                )
+              : null,
         ),
       ),
     );

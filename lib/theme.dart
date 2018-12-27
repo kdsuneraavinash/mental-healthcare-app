@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class UIColors {
-  static const Color primaryColor = const Color(0xFF5433FF);
+  static const Color primaryColor = Colors.black;
   static const Color accentColor = Colors.red;
   static const Color iconBackgroundColor = Colors.green;
   static const Color iconSecondaryBackgroundColor = Colors.black;

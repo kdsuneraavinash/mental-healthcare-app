@@ -14,6 +14,7 @@ class Post {
   final String slug;
   final String title;
   final String excerpt;
+  final int featuredMediaId;
 
   Post({
     this.id,
@@ -22,6 +23,7 @@ class Post {
     this.slug,
     this.title,
     this.excerpt,
+    this.featuredMediaId,
   });
 
   factory Post.fromMap(Map<String, dynamic> map) {
@@ -31,7 +33,11 @@ class Post {
       link: map["link"],
       slug: map["slug"],
       title: HtmlUnescape().convert(map["title"]["rendered"]),
-      excerpt: HtmlUnescape().convert(map["excerpt"]["rendered"]),
+      excerpt: HtmlUnescape()
+          .convert(map["excerpt"]["rendered"])
+          .replaceAll("</p>", "")
+          .replaceAll("<p>", ""),
+      featuredMediaId: map["featured_media"],
     );
   }
 
@@ -43,16 +49,19 @@ class Post {
     return getPostsFromJson(getJsonPosts());
   }
 
-  static Future<List<Post>> getPostsFromWeb(int categoryId) async {
-    String postUrl = "$POST_URL"
+  static Future<List<Post>> getPostsFromWeb(
+      [int categoryId = -1, String url]) async {
+    String postUrl = url ??
+        "$POST_URL"
         "?_fields[]=id"
         "&_fields[]=date"
         "&_fields[]=link"
         "&_fields[]=slug"
         "&_fields[]=title"
         "&_fields[]=excerpt"
-        "&per_page=100"
-        "&categories=$categoryId";
+        "&_fields[]=featured_media"
+        "&per_page=100";
+    if (categoryId != -1) postUrl += "&categories=$categoryId";
 
     HTTP.Response response = await HTTP.get(postUrl);
     List postJson = JSON.jsonDecode(response.body);
@@ -75,7 +84,8 @@ class Post {
           "link": link,
           "slug": slug,
           "title": title,
-          "excerpt": excerpt
+          "excerpt": excerpt,
+          "featured_media": featuredMediaId
         }.toString();
   }
 }

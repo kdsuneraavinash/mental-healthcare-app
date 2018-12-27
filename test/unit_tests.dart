@@ -7,6 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mental_healthcare_app/logic/articles/category.dart';
+import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
@@ -41,7 +42,11 @@ void main() {
     expect(Post.getTestPosts(), allOf([isNotNull]));
   });
 
-  test("Checking if test Categories load successfully from web", () async {
+  test("Checking if Categories load successfully from web", () async {
     expect(await Category.getCategoriesFromWeb(), allOf([isNotNull]));
+  });
+
+  test("Checking if Featured Posts load successfully from web", () async {
+  expect(await FeaturedPost.getFeaturedPostsFromWeb(), allOf([isNotNull]));
   });
 }
