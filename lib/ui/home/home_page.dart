@@ -16,32 +16,30 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: NestedScrollView(
-          headerSliverBuilder: (_, __) => [_buildSliverAppBar(context)],
-          body: StreamBuilder<List<FeaturedPost>>(
-            stream: bloc.featuredPostListStream,
-            builder: (_, snapshot) {
-              return ListView.builder(
-                  itemCount: (snapshot.data?.length ?? 1) + 1,
-                  physics: ClampingScrollPhysics(),
-                  itemBuilder: (listContext, index) {
-                    if (index == 0) {
-                      return CategoryView.buildSectionHeader("Recent Articles");
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: NestedScrollView(
+        headerSliverBuilder: (_, __) => [_buildSliverAppBar(context)],
+        body: StreamBuilder<List<FeaturedPost>>(
+          stream: bloc.featuredPostListStream,
+          builder: (_, snapshot) {
+            return ListView.builder(
+                itemCount: (snapshot.data?.length ?? 1) + 1,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (listContext, index) {
+                  if (index == 0) {
+                    return CategoryView.buildSectionHeader("Recent Articles");
+                  } else {
+                    if (snapshot.hasData && snapshot.data.length > 0) {
+                      return PostCard(snapshot.data[index - 1]);
                     } else {
-                      if (snapshot.hasData && snapshot.data.length > 0) {
-                        return PostCard(snapshot.data[index - 1]);
-                      } else {
-                        return _buildChildControl(
-                            CircularProgressIndicator(), context);
-                      }
+                      return _buildChildControl(
+                          CircularProgressIndicator(), context);
                     }
-                  });
-            },
-          ),
+                  }
+                });
+          },
         ),
       ),
     );
@@ -51,77 +49,126 @@ class HomePageContent extends StatelessWidget {
     return MediaQuery.removePadding(
       context: context,
       child: SliverAppBar(
-        flexibleSpace: FlexibleSpaceBar(
-          collapseMode: CollapseMode.parallax,
-          background: Stack(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/article-reader.jpg"),
-                    fit: BoxFit.cover,
-                    colorFilter: ColorFilter.mode(
-                      theme.UIColors.primaryColor.withAlpha(0xBB),
-                      BlendMode.srcATop,
-                    ),
-                  ),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Welcome to Sahanaya App.\n"
-                            "An information center for mental health issues.",
-                        textAlign: TextAlign.center,
-                        style: theme.UITextThemes().articleTopBarBackgroundText,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          _buildIconButton(
-                            FontAwesomeIcons.newspaper,
-                            () => TransitionMaker.slideTransition(
-                                  destinationPageCall: () => CategoryView(),
-                                )..start(context),
-                          ),
-                          _buildIconButton(
-                            FontAwesomeIcons.handsHelping,
-                            () => TransitionMaker.slideTransition(
-                                  destinationPageCall: () => DocListPage(),
-                                )..start(context),
-                          ),
-                          _buildIconButton(
-                            FontAwesomeIcons.map,
-                            () => TransitionMaker.slideTransition(
-                                  destinationPageCall: () =>
-                                      ClinicLocationMap(),
-                                )..start(context),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                alignment: Alignment.bottomCenter,
-                child: Icon(
-                  FontAwesomeIcons.arrowDown,
-                  color: Colors.white,
-                ),
-                margin: EdgeInsets.only(bottom: 100.0),
-              ),
-            ],
-          ),
-        ),
+        flexibleSpace: _buildAppBarFlexibleSpace(context),
+        actions: _buildAppBarActions(),
         expandedHeight: MediaQuery.of(context).size.height,
         backgroundColor: theme.UIColors.primaryColor,
-        pinned: false,
+        pinned: true,
         floating: false,
+        title: Text("Sahanaya App"),
+      ),
+    );
+  }
+
+  List<Widget> _buildAppBarActions() {
+    return [
+      PopupMenuButton(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(FontAwesomeIcons.language, color: Colors.white),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("English", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+        itemBuilder: (_) => <PopupMenuItem<String>>[
+              PopupMenuItem<String>(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0.0),
+                    title: Text('English'),
+                    leading: CircleAvatar(child: Text("En")),
+                  ),
+                  value: 'En'),
+//                  PopupMenuItem<String>(
+//                      child: ListTile(
+//                        contentPadding: EdgeInsets.all(0.0),
+//                        title: Text('සිංහල'),
+//                        leading: CircleAvatar(child: Text("සිං")),
+//                      ),
+//                      value: 'Si'),
+//                  PopupMenuItem<String>(
+//                      child: ListTile(
+//                        contentPadding: EdgeInsets.all(0.0),
+//                        title: Text('தமிழ்'),
+//                        leading: CircleAvatar(child: Text("த")),
+//                      ),
+//                      value: 'Ta'),
+            ],
+        onSelected: (_) => null,
+      ),
+    ];
+  }
+
+  Widget _buildAppBarFlexibleSpace(BuildContext context) {
+    return FlexibleSpaceBar(
+      collapseMode: CollapseMode.parallax,
+      background: Stack(
+        children: <Widget>[
+          Container(
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("res/images/article-reader.jpg"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  theme.UIColors.primaryColor.withAlpha(0xBB),
+                  BlendMode.srcATop,
+                ),
+              ),
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Welcome to Sahanaya App.\n"
+                        "An information center for mental health issues.",
+                    textAlign: TextAlign.center,
+                    style: theme.UITextThemes().articleTopBarBackgroundText,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _buildIconButton(
+                        FontAwesomeIcons.newspaper,
+                        () => TransitionMaker.slideTransition(
+                              destinationPageCall: () => CategoryView(),
+                            )..start(context),
+                      ),
+                      _buildIconButton(
+                        FontAwesomeIcons.handsHelping,
+                        () => TransitionMaker.slideTransition(
+                              destinationPageCall: () => DocListPage(),
+                            )..start(context),
+                      ),
+                      _buildIconButton(
+                        FontAwesomeIcons.map,
+                        () => TransitionMaker.slideTransition(
+                              destinationPageCall: () => ClinicLocationMap(),
+                            )..start(context),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height,
+            alignment: Alignment.bottomCenter,
+            child: Icon(
+              FontAwesomeIcons.arrowDown,
+              color: Colors.white,
+            ),
+            margin: EdgeInsets.only(bottom: 100.0),
+          ),
+        ],
       ),
     );
   }

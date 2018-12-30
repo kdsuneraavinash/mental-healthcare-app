@@ -14,103 +14,94 @@ class PostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double imageHeight = MediaQuery.of(context).size.width / (16 / 9);
-    return Stack(
-      children: <Widget>[
-        Container(
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: imageHeight / 3),
-              Container(
-                margin: EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
-                  boxShadow: [BoxShadow(color: Colors.black, blurRadius: 4.0)],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      SizedBox(height: imageHeight / 1.4),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 0.0),
-                        child: Text(
-                          post.slug,
-                          style: Theme.of(context)
-                              .textTheme
-                              .caption
-                              .copyWith(color: theme.UIColors.secondaryColor),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 4.0),
-                        child: Text(
-                          post.title,
-                          style: Theme.of(context)
-                              .textTheme
-                              .title
-                              .copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(post.excerpt),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: RaisedButton.icon(
-                          color: theme.UIColors.accentColor,
-                          onPressed: () => TransitionMaker.fadeTransition(
-                                destinationPageCall: () =>
-                                    ArticleView(post.title, post.link),
-                              )..start(context),
-                          icon: Icon(
-                            FontAwesomeIcons.arrowRight,
-                            color: Colors.white,
-                          ),
-                          label: Text(
-                            "Read",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
+    return Container(
+      margin: EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        boxShadow: [BoxShadow(color: Colors.black, blurRadius: 4.0)],
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        children: <Widget>[
+          Container(
             height: imageHeight,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Colors.black),
-            ),
-            margin: EdgeInsets.fromLTRB(16.0, 20.0, 16.0, 5.0),
             child: StreamBuilder<String>(
               stream: bloc.mediaLinkStream,
               builder: (_, snapshot) => snapshot.hasData
-                  ? CachedNetworkImage(
-                      imageUrl: snapshot.data,
-                      fit: BoxFit.cover,
-                      height: imageHeight,
-                      width: MediaQuery.of(context).size.width - 32.0,
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(8.0)),
+                      clipBehavior: Clip.antiAlias,
+                      child: CachedNetworkImage(
+                          imageUrl: snapshot.data,
+                          fit: BoxFit.cover,
+                          height: imageHeight,
+                          width: MediaQuery.of(context).size.width),
                     )
                   : SizedBox(
                       height: imageHeight,
-                      width: MediaQuery.of(context).size.width - 32.0,
+                      width: MediaQuery.of(context).size.width,
                       child: Center(
-                          child: SizedBox(
-                        width: 100.0,
-                        child: LinearProgressIndicator(),
-                      )),
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
-            ))
-      ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 0.0),
+                  child: Text(
+                    post.slug,
+                    style: Theme.of(context)
+                        .textTheme
+                        .caption
+                        .copyWith(color: theme.UIColors.secondaryColor),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 4.0),
+                  child: Text(
+                    post.title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .title
+                        .copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(post.excerpt),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: FlatButton.icon(
+                    color: theme.UIColors.accentColor,
+                    onPressed: () => TransitionMaker.fadeTransition(
+                          destinationPageCall: () =>
+                              ArticleView(post.title, post.link),
+                        )..start(context),
+                    icon: Icon(
+                      FontAwesomeIcons.arrowRight,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "Read",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

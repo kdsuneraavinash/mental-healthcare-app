@@ -27,6 +27,7 @@ class ArticleViewState extends State<ArticleView> {
       document.getElementsByClassName('section-blog-info')[0].style.display = 'none';
       document.getElementsByClassName('blog-sidebar')[0].style.display = 'none';
       document.getElementsByClassName('footer-wrapper')[0].style.display = 'none';
+      document.getElementsByClassName('related-posts')[0].style.display = 'none';
       """);
         setState(() {
           _finishedLoad = true;
