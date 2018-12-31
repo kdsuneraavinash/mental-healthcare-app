@@ -18,7 +18,6 @@ class FeaturedPostBLoC {
 
   void _populateFeaturedPostListStream() async {
     _posts = await FeaturedPost.getFeaturedPostsFromWeb();
-    print(_posts);
     _featuredPostListStreamController.add(_posts);
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/category_view_bloc.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/category.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
@@ -19,7 +20,10 @@ class CategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.category?.name ?? "Categories"),
+        title: Text(this.category?.name ??
+            CustomLocalizationProvider.of(context)
+                .localization
+                .readArticlesAppBarTitle),
       ),
       body: StreamBuilder<List<Category>>(
         stream: bloc.categoryListStream,
@@ -41,9 +45,17 @@ class CategoryView extends StatelessWidget {
       AsyncSnapshot<List<Post>> postSnapshot) {
     return ListView(
         physics: ClampingScrollPhysics(),
-        children: [buildSectionHeader("Sub Categories")] +
+        children: [
+              buildSectionHeader(CustomLocalizationProvider.of(context)
+                  .localization
+                  .readArticlesSubCategoriesTitle)
+            ] +
             _buildCategoryStreamBuilder(context, categorySnapshot) +
-            [buildSectionHeader("Articles")] +
+            [
+              buildSectionHeader(CustomLocalizationProvider.of(context)
+                  .localization
+                  .readArticlesArticlesTitle)
+            ] +
             _buildPostStreamBuilder(context, postSnapshot));
   }
 

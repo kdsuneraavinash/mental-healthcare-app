@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/doc_list_bloc.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/contact_helper.dart';
@@ -13,7 +14,9 @@ class DocListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Consultants/Psychiatrists in Sri Lanka"),
+        title: Text(CustomLocalizationProvider.of(context)
+            .localization
+            .consultantsAppBarTitle),
         backgroundColor: theme.UIColors.primaryColor,
       ),
       body: DocListPageContent(DocListBLoC()),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/post_card_bloc.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/articles/article_view.dart';
@@ -92,7 +93,9 @@ class PostCard extends StatelessWidget {
                       color: Colors.white,
                     ),
                     label: Text(
-                      "Read",
+                      CustomLocalizationProvider.of(context)
+                          .localization
+                          .postCardReadButtonText,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

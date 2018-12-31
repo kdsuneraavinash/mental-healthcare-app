@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
@@ -46,32 +47,48 @@ class HomePage extends StatelessWidget {
   List<Widget> buildDrawerActions(BuildContext context) {
     return [
       _buildDrawerListTile(
-        title: "Read Articles",
-        subtitle: "Spread Awareness",
+        title: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerReadArticles,
+        subtitle: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerReadArticlesDescription,
         icon: FontAwesomeIcons.newspaper,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => CategoryView(),
             )..start(context),
       ),
       _buildDrawerListTile(
-        title: "Consultants & Psychiatrists",
-        subtitle: "Contact Consultants",
+        title: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerConsultants,
+        subtitle: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerConsultantsDescription,
         icon: FontAwesomeIcons.handsHelping,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => DocListPage(),
             )..start(context),
       ),
       _buildDrawerListTile(
-        title: "Clinic Locations",
-        subtitle: "View mental health clinics",
+        title: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerClinics,
+        subtitle: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerClinicsDescription,
         icon: FontAwesomeIcons.map,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => ClinicLocationMap(),
             )..start(context),
       ),
       _buildDrawerListTile(
-        title: "Trivia Questions",
-        subtitle: "Test your knowledge",
+        title: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerTrivia,
+        subtitle: CustomLocalizationProvider.of(context)
+            .localization
+            .homePageDrawerTriviaDescription,
         icon: FontAwesomeIcons.question,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => TriviaStartPage(),

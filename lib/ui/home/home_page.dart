@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/featured_post_bloc.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
+import 'package:mental_healthcare_app/main.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
@@ -29,7 +31,10 @@ class HomePageContent extends StatelessWidget {
                 physics: ClampingScrollPhysics(),
                 itemBuilder: (listContext, index) {
                   if (index == 0) {
-                    return CategoryView.buildSectionHeader("Recent Articles");
+                    return CategoryView.buildSectionHeader(
+                        CustomLocalizationProvider.of(context)
+                            .localization
+                            .homePageRecentArticlesTitle);
                   } else {
                     if (snapshot.hasData && snapshot.data.length > 0) {
                       return PostCard(snapshot.data[index - 1]);
@@ -50,17 +55,19 @@ class HomePageContent extends StatelessWidget {
       context: context,
       child: SliverAppBar(
         flexibleSpace: _buildAppBarFlexibleSpace(context),
-        actions: _buildAppBarActions(),
+        actions: _buildAppBarActions(context),
         expandedHeight: MediaQuery.of(context).size.height,
         backgroundColor: theme.UIColors.primaryColor,
         pinned: true,
         floating: false,
-        title: Text("Sahanaya App"),
+        title: Text(CustomLocalizationProvider.of(context)
+            .localization
+            .homePageAppBarTitle),
       ),
     );
   }
 
-  List<Widget> _buildAppBarActions() {
+  List<Widget> _buildAppBarActions(BuildContext context) {
     return [
       PopupMenuButton(
         child: Row(
@@ -72,7 +79,11 @@ class HomePageContent extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("English", style: TextStyle(color: Colors.white)),
+              child: Text(
+                  CustomLocalizationProvider.of(context)
+                      .localization
+                      .homePageAppBarLanguageSelected,
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -83,23 +94,23 @@ class HomePageContent extends StatelessWidget {
                     title: Text('English'),
                     leading: CircleAvatar(child: Text("En")),
                   ),
-                  value: 'En'),
-//                  PopupMenuItem<String>(
-//                      child: ListTile(
-//                        contentPadding: EdgeInsets.all(0.0),
-//                        title: Text('සිංහල'),
-//                        leading: CircleAvatar(child: Text("සිං")),
-//                      ),
-//                      value: 'Si'),
-//                  PopupMenuItem<String>(
-//                      child: ListTile(
-//                        contentPadding: EdgeInsets.all(0.0),
-//                        title: Text('தமிழ்'),
-//                        leading: CircleAvatar(child: Text("த")),
-//                      ),
-//                      value: 'Ta'),
+                  value: 'en'),
+              PopupMenuItem<String>(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0.0),
+                    title: Text('සිංහල'),
+                    leading: CircleAvatar(child: Text("සිං")),
+                  ),
+                  value: 'si'),
+              PopupMenuItem<String>(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0.0),
+                    title: Text('தமிழ்'),
+                    leading: CircleAvatar(child: Text("த")),
+                  ),
+                  value: 'ta'),
             ],
-        onSelected: (_) => null,
+        onSelected: (v) => LocaleController.of(context).onLocaleChange(v),
       ),
     ];
   }
@@ -126,8 +137,9 @@ class HomePageContent extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Welcome to Sahanaya App.\n"
-                        "An information center for mental health issues.",
+                    CustomLocalizationProvider.of(context)
+                        .localization
+                        .homePageCenterScreenText,
                     textAlign: TextAlign.center,
                     style: theme.UITextThemes().articleTopBarBackgroundText,
                   ),

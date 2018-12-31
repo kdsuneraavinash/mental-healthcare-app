@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mental_healthcare_app/bloc/clinic_location_map_bloc.dart';
+import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
 import 'package:mental_healthcare_app/ui/permission_gate.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -27,7 +28,9 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Clinic Locations"),
+        title: Text(CustomLocalizationProvider.of(context)
+            .localization
+            .clinicLocationsAppBarTitle),
         backgroundColor: theme.UIColors.primaryColor,
       ),
       body: StreamBuilder(
@@ -43,7 +46,9 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
     return Stack(
       children: <Widget>[
         PermissionGate(
-          permissionRequestText: "Grant Location Access",
+          permissionRequestText: CustomLocalizationProvider.of(context)
+              .localization
+              .clinicLocationsGrantAccess,
           permission: PermissionGroup.location,
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -96,7 +101,9 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
                                 ),
                                 title: Text(
                                   loaded
-                                      ? "Time ${snapshot.data.startTime} : ${snapshot.data.endTime}"
+                                      ? CustomLocalizationProvider.of(context)
+                                      .localization
+                                      .clinicLocationsDescriptionTitle(snapshot.data.startTime, snapshot.data.endTime)
                                       : "",
                                   style: theme.UITextThemes().clinicOverlayText,
                                 ),
