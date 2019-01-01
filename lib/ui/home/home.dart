@@ -7,7 +7,6 @@ import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/home/home_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
-import 'package:mental_healthcare_app/ui/trivia_qa/trivia_start.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -80,18 +79,6 @@ class HomePage extends StatelessWidget {
         icon: FontAwesomeIcons.map,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => LocationMap(),
-            )..start(context),
-      ),
-      _buildDrawerListTile(
-        title: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerTrivia,
-        subtitle: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerTriviaDescription,
-        icon: FontAwesomeIcons.question,
-        destinationCallBack: () => TransitionMaker.slideTransition(
-              destinationPageCall: () => TriviaStartPage(),
             )..start(context),
       ),
 //      Divider(),

@@ -38,8 +38,6 @@ abstract class CustomLocalization {
   String get homePageDrawerConsultantsDescription;
   String get homePageDrawerReadArticles;
   String get homePageDrawerReadArticlesDescription;
-  String get homePageDrawerTrivia;
-  String get homePageDrawerTriviaDescription;
   String get homePageRecentArticlesTitle;
   String get postCardReadButtonText;
   String get readArticlesAppBarTitle;
@@ -64,8 +62,6 @@ class En implements CustomLocalization {
   String get homePageDrawerConsultantsDescription => "Know about NCMH";
   String get homePageDrawerReadArticles => "Read Articles";
   String get homePageDrawerReadArticlesDescription => "Spread Awareness";
-  String get homePageDrawerTrivia => "Trivia Questions";
-  String get homePageDrawerTriviaDescription => "Test your knowledge";
   String get homePageRecentArticlesTitle => "Recent Articles";
   String get postCardReadButtonText => "Read";
   String get readArticlesAppBarTitle => "Read Articles";
@@ -91,8 +87,6 @@ class Si implements CustomLocalization {
   String get homePageDrawerReadArticles => "ලිපි කියවන්න";
   String get homePageDrawerReadArticlesDescription =>
       "මානසික ගැටළු පිලිබදව දැනුවත් වෙන්න";
-  String get homePageDrawerTrivia => "ප්‍රශ්න මාලාව";
-  String get homePageDrawerTriviaDescription => "ඔබගේ දැනුම පිරික්සන්න";
   String get homePageRecentArticlesTitle => "මෑතකාලීන ලිපි";
   String get postCardReadButtonText => "කියවන්න";
   String get readArticlesAppBarTitle => "ලිපි කියවන්න";
@@ -117,8 +111,6 @@ class Ta implements CustomLocalization {
   String get homePageDrawerConsultantsDescription => "தொடர்பு ஆலோசகர்கள்";
   String get homePageDrawerReadArticles => "கட்டுரைகள் படிக்கவும்";
   String get homePageDrawerReadArticlesDescription => "விழிப்புணர்வு";
-  String get homePageDrawerTrivia => "පட்ரிவியா கேள்விகள்";
-  String get homePageDrawerTriviaDescription => "உங்கள் அறிவை சோதிக்கவும்";
   String get homePageRecentArticlesTitle => "சமீபத்திய கட்டுரைகள்";
   String get postCardReadButtonText => "படிக்க";
   String get readArticlesAppBarTitle => "கட்டுரைகள் படிக்கவும்";
