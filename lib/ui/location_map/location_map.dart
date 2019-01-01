@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mental_healthcare_app/bloc/clinic_location_map_bloc.dart';
+import 'package:mental_healthcare_app/bloc/location_map_bloc.dart';
 import 'package:mental_healthcare_app/localization/localization.dart';
-import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
+import 'package:mental_healthcare_app/logic/location/location.dart';
 import 'package:mental_healthcare_app/ui/permission_gate.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 
-class ClinicLocationMap extends StatefulWidget {
+class LocationMap extends StatefulWidget {
   @override
-  ClinicLocationMapState createState() {
-    return ClinicLocationMapState();
+  LocationMapState createState() {
+    return LocationMapState();
   }
 }
 
-class ClinicLocationMapState extends State<ClinicLocationMap> {
+class LocationMapState extends State<LocationMap> {
   GoogleMapController mapController;
-  final ClinicLocationMapBLoC bloc = ClinicLocationMapBLoC();
+  final LocationMapBLoC bloc = LocationMapBLoC();
 
-  ClinicLocationMapState() {
+  LocationMapState() {
     bloc.mapLoadedSink.add(true);
     bloc.locationsStream.listen(_addMarker);
   }
@@ -30,7 +30,7 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
       appBar: AppBar(
         title: Text(CustomLocalizationProvider.of(context)
             .localization
-            .clinicLocationsAppBarTitle),
+            .locationsAppBarTitle),
         backgroundColor: theme.UIColors.primaryColor,
       ),
       body: StreamBuilder(
@@ -48,7 +48,7 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
         PermissionGate(
           permissionRequestText: CustomLocalizationProvider.of(context)
               .localization
-              .clinicLocationsGrantAccess,
+              .locationsGrantAccess,
           permission: PermissionGroup.location,
           child: Container(
             height: MediaQuery.of(context).size.height,
@@ -76,7 +76,7 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
         Positioned(
           top: 0.0,
           width: MediaQuery.of(context).size.width,
-          child: StreamBuilder<ClinicLocation>(
+          child: StreamBuilder<Location>(
               stream: bloc.selectedLocationStream,
               builder: (_, snapshot) {
                 bool loaded = snapshot.hasData && snapshot.data != null;
@@ -94,40 +94,50 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
                             children: <Widget>[
                               ListTile(
                                 leading: Icon(
-                                  FontAwesomeIcons.hospitalSymbol,
+                                  FontAwesomeIcons.infoCircle,
+                                  size: theme.UITextThemes()
+                                      .locationOverlayText
+                                      .fontSize,
                                   color: theme.UITextThemes()
-                                      .clinicOverlayText
+                                      .locationOverlayText
                                       .color,
                                 ),
                                 title: Text(
-                                  loaded
-                                      ? CustomLocalizationProvider.of(context)
-                                      .localization
-                                      .clinicLocationsDescriptionTitle(snapshot.data.startTime, snapshot.data.endTime)
-                                      : "",
-                                  style: theme.UITextThemes().clinicOverlayText,
+                                  loaded ? snapshot.data.name : "",
+                                  style: theme.UITextThemes()
+                                      .locationOverlayText
+                                      .copyWith(fontWeight: FontWeight.w600),
                                 ),
                                 subtitle: Text(
-                                  loaded ? snapshot.data.address : "",
-                                  style: theme.UITextThemes().clinicOverlayText,
+                                  loaded ? snapshot.data.email : "",
+                                  style: theme.UITextThemes()
+                                      .locationOverlayText
+                                      .copyWith(fontSize: 12),
                                 ),
-                                trailing: IconButton(
-                                    icon: Icon(
-                                      FontAwesomeIcons.times,
-                                      color: theme.UITextThemes()
-                                          .clinicOverlayText
-                                          .color,
-                                    ),
-                                    onPressed: () {
-                                      bloc.mapMarkerSelectedSink.add(null);
-                                    }),
                               ),
-                              Text(
-                                loaded ? snapshot.data.about : "",
-                                style: TextStyle(
-                                  color: theme.UITextThemes()
-                                      .clinicOverlayText
-                                      .color,
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Text(
+                                  loaded
+                                      ? "${snapshot.data.address}\n\n"
+                                          "Tel: ${snapshot.data.telephone}\n"
+                                          "Fax: ${snapshot.data.fax}"
+                                      : "",
+                                  style: TextStyle(
+                                    color: theme.UITextThemes()
+                                        .locationOverlayText
+                                        .color,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: OutlineButton(
+                                  child: Text("Close",
+                                      style: theme.UITextThemes()
+                                          .locationOverlayText),
+                                  onPressed: () =>
+                                      bloc.mapMarkerSelectedSink.add(null),
                                 ),
                               )
                             ],
@@ -151,13 +161,13 @@ class ClinicLocationMapState extends State<ClinicLocationMap> {
     });
   }
 
-  void _addMarker(ClinicLocation location) {
+  void _addMarker(Location location) {
     if (mapController == null) return;
     if (location == null) return;
 
     MarkerOptions markerOptions = MarkerOptions(
         position: LatLng(location.latitude, location.longitude),
-        infoWindowText: InfoWindowText("ID", location.id));
+        infoWindowText: InfoWindowText(location.name, location.email));
     mapController.addMarker(markerOptions);
   }
 }

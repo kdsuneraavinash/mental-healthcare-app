@@ -7,7 +7,7 @@ import 'package:mental_healthcare_app/main.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
-import 'package:mental_healthcare_app/ui/clinic_locations/clinic_location_map.dart';
+import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
 import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
 
@@ -162,7 +162,7 @@ class HomePageContent extends StatelessWidget {
                       _buildIconButton(
                         FontAwesomeIcons.map,
                         () => TransitionMaker.slideTransition(
-                              destinationPageCall: () => ClinicLocationMap(),
+                              destinationPageCall: () => LocationMap(),
                             )..start(context),
                       )
                     ],

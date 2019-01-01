@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mental_healthcare_app/logic/articles/category.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
-import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
+import 'package:mental_healthcare_app/logic/location/location.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 
@@ -30,7 +30,7 @@ void main() {
   test(
       "Checking if test Clinic Locations loads successfully from local test file",
       () {
-    expect(ClinicLocation.getTestLocations(), allOf([isNotNull]));
+    expect(Location.getLocations(), allOf([isNotNull]));
   });
 
   test("Checking if test Categories load successfully from local test file",

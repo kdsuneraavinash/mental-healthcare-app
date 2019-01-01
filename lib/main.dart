@@ -50,7 +50,7 @@ class _LocaleControllerState extends State<LocaleController> {
 
   @override
   void initState() {
-    locale = 'si';
+    locale = 'en';
     super.initState();
   }
 

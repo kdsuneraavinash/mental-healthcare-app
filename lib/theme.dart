@@ -27,7 +27,7 @@ class UITextThemes {
     fontWeight: FontWeight.w400,
   );
 
-  TextStyle clinicOverlayText = TextStyle(
+  TextStyle locationOverlayText = TextStyle(
     color: Colors.white,
   );
 

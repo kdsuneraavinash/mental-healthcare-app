@@ -1,21 +1,21 @@
 import 'dart:async';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:mental_healthcare_app/logic/clinic_locations/clinic_location.dart';
+import 'package:mental_healthcare_app/logic/location/location.dart';
 import 'package:rxdart/subjects.dart';
 
-class ClinicLocationMapBLoC {
-  Map<String, ClinicLocation> _clinicLocations;
+class LocationMapBLoC {
+  Map<String, Location> _locations;
 
   // Out Streams
-  StreamController<ClinicLocation> _locationsStreamController =
+  StreamController<Location> _locationsStreamController =
       BehaviorSubject(seedValue: null);
-  Stream<ClinicLocation> get locationsStream =>
+  Stream<Location> get locationsStream =>
       _locationsStreamController.stream;
 
-  StreamController<ClinicLocation> _selectedLocationStreamController =
+  StreamController<Location> _selectedLocationStreamController =
       BehaviorSubject(seedValue: null);
-  Stream<ClinicLocation> get selectedLocationStream =>
+  Stream<Location> get selectedLocationStream =>
       _selectedLocationStreamController.stream;
 
   StreamController<bool> _startWindowStreamController =
@@ -40,8 +40,8 @@ class ClinicLocationMapBLoC {
     _startWindowStreamController.close();
   }
 
-  ClinicLocationMapBLoC() {
-    _clinicLocations = {};
+  LocationMapBLoC() {
+    _locations = {};
 
     Future.delayed(Duration(milliseconds: 1200)).then((_) {
       _startWindowStreamController.add(true);
@@ -50,8 +50,8 @@ class ClinicLocationMapBLoC {
     _mapLoadedStreamController.stream.listen((v) {
       if (!v) return;
 
-      for (ClinicLocation location in ClinicLocation.getTestLocations()) {
-        _clinicLocations[location.id] = location;
+      for (Location location in Location.getLocations()) {
+        _locations[location.name] = location;
         _locationsStreamController.add(location);
       }
     });
@@ -61,8 +61,8 @@ class ClinicLocationMapBLoC {
         _selectedLocationStreamController.add(null);
         return;
       }
-      ClinicLocation location =
-          _clinicLocations[marker.options.infoWindowText.snippet];
+      Location location =
+          _locations[marker.options.infoWindowText.title];
       if (location == null) return;
       _selectedLocationStreamController.add(location);
     });
