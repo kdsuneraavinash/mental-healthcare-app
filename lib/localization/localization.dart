@@ -60,8 +60,8 @@ class En implements CustomLocalization {
       "Welcome to Sahanaya App.\nAn information center for mental health issues.";
   String get homePageDrawerClinics => "Our Locations";
   String get homePageDrawerClinicsDescription => "View Our Locations & Adressess";
-  String get homePageDrawerConsultants => "Consultants & Psychiatrists";
-  String get homePageDrawerConsultantsDescription => "Contact Consultants";
+  String get homePageDrawerConsultants => "About Us";
+  String get homePageDrawerConsultantsDescription => "Know about NCMH";
   String get homePageDrawerReadArticles => "Read Articles";
   String get homePageDrawerReadArticlesDescription => "Spread Awareness";
   String get homePageDrawerTrivia => "Trivia Questions";
