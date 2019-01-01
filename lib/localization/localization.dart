@@ -45,7 +45,6 @@ abstract class CustomLocalization {
   String get readArticlesAppBarTitle;
   String get readArticlesArticlesTitle;
   String get readArticlesSubCategoriesTitle;
-  String get locationsGrantAccess;
 }
 
 class En implements CustomLocalization {
@@ -72,7 +71,6 @@ class En implements CustomLocalization {
   String get readArticlesAppBarTitle => "Read Articles";
   String get readArticlesArticlesTitle => "Read Articles";
   String get readArticlesSubCategoriesTitle => "Sub Categories";
-  String get locationsGrantAccess => "Grant Location Access";
 }
 
 class Si implements CustomLocalization {
@@ -100,8 +98,6 @@ class Si implements CustomLocalization {
   String get readArticlesAppBarTitle => "ලිපි කියවන්න";
   String get readArticlesArticlesTitle => "ලිපි කියවන්න";
   String get readArticlesSubCategoriesTitle => "අනු ප්‍රවර්ගය";
-  String get locationsGrantAccess =>
-      "ඔබගේ ස්ඨ්හානය ලබගැනීමට අවසර ලබාඩෙන්න";
 }
 
 class Ta implements CustomLocalization {
@@ -128,5 +124,4 @@ class Ta implements CustomLocalization {
   String get readArticlesAppBarTitle => "கட்டுரைகள் படிக்கவும்";
   String get readArticlesArticlesTitle => "கட்டுரைகள் படிக்கவும்";
   String get readArticlesSubCategoriesTitle => "துணை வகைகள்";
-  String get locationsGrantAccess => "இருப்பிட அணுகலை வழங்குதல்";
 }

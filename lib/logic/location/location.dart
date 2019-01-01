@@ -5,8 +5,8 @@ const double MAX_TOP_RIGHT_LATITUDE = 10.482846;
 const double MAX_BOTTOM_LEFT_LONGITUDE = 77.851350;
 const double MAX_BOTTOM_LEFT_LATITUDE = 5.285498;
 
-const double SRILANKA_LONGITUDE = 79.902407;
-const double SRILANKA_LATITUDE = 7.8731;
+const double SRILANKA_LONGITUDE = 79.878074;
+const double SRILANKA_LATITUDE = 6.8731;
 const double SRILANKA_ZOOM = 7.8;
 
 class Location {
