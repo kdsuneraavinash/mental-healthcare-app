@@ -11,18 +11,8 @@ import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
 import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
-import 'package:mental_healthcare_app/logic/trivia_qa/trivia_question.dart';
 
 void main() {
-  test("Checking if API call works correctly", () async {
-    expect(await TriviaQuestion.getQuestionFromOpenDB(),
-        allOf([isNotNull, isMap, isNotEmpty]));
-  });
-
-  test("Checking if trivia fromOpenDBJSON() works", () async {
-    expect(await TriviaQuestion.fromOpenDB(), allOf([isNotNull]));
-  });
-
   test("Checking if test Doctors loads successfully from local test file", () {
     expect(Doctor.loadTestDoctors(), allOf([isNotNull]));
   });
