@@ -4,8 +4,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mental_healthcare_app/bloc/location_map_bloc.dart';
 import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
-import 'package:mental_healthcare_app/ui/permission_gate.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 
 class LocationMap extends StatefulWidget {
@@ -45,17 +43,11 @@ class LocationMapState extends State<LocationMap> {
   Widget _buildGoogleMap() {
     return Stack(
       children: <Widget>[
-        PermissionGate(
-          permissionRequestText: CustomLocalizationProvider.of(context)
-              .localization
-              .locationsGrantAccess,
-          permission: PermissionGroup.location,
-          child: Container(
+          Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: GoogleMap(
               options: GoogleMapOptions(
-                myLocationEnabled: true,
                 cameraTargetBounds: CameraTargetBounds(
                   LatLngBounds(
                     southwest: LatLng(
@@ -72,7 +64,6 @@ class LocationMapState extends State<LocationMap> {
               onMapCreated: _onGoogleMapCreated,
             ),
           ),
-        ),
         Positioned(
           top: 0.0,
           width: MediaQuery.of(context).size.width,
