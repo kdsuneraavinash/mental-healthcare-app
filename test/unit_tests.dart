@@ -10,13 +10,8 @@ import 'package:mental_healthcare_app/logic/articles/category.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
-import 'package:mental_healthcare_app/logic/doc_list/doctor.dart';
 
 void main() {
-  test("Checking if test Doctors loads successfully from local test file", () {
-    expect(Doctor.loadTestDoctors(), allOf([isNotNull]));
-  });
-
   test(
       "Checking if test Clinic Locations loads successfully from local test file",
       () {

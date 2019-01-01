@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mental_healthcare_app/ui/about_us/about_us_page.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
-import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/home/home_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
 
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
             .homePageDrawerConsultantsDescription,
         icon: FontAwesomeIcons.handsHelping,
         destinationCallBack: () => TransitionMaker.slideTransition(
-              destinationPageCall: () => DocListPage(),
+              destinationPageCall: () => AboutUsPage(),
             )..start(context),
       ),
       _buildDrawerListTile(

@@ -5,10 +5,10 @@ import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/main.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
+import 'package:mental_healthcare_app/ui/about_us/about_us_page.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
 import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
-import 'package:mental_healthcare_app/ui/doc_list/doc_list_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
 
 class HomePageContent extends StatelessWidget {
@@ -95,20 +95,20 @@ class HomePageContent extends StatelessWidget {
                     leading: CircleAvatar(child: Text("En")),
                   ),
                   value: 'en'),
-              PopupMenuItem<String>(
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(0.0),
-                    title: Text('සිංහල'),
-                    leading: CircleAvatar(child: Text("සිං")),
-                  ),
-                  value: 'si'),
-              PopupMenuItem<String>(
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(0.0),
-                    title: Text('தமிழ்'),
-                    leading: CircleAvatar(child: Text("த")),
-                  ),
-                  value: 'ta'),
+              // PopupMenuItem<String>(
+              //     child: ListTile(
+              //       contentPadding: EdgeInsets.all(0.0),
+              //       title: Text('සිංහල'),
+              //       leading: CircleAvatar(child: Text("සිං")),
+              //     ),
+              //     value: 'si'),
+              // PopupMenuItem<String>(
+              //     child: ListTile(
+              //       contentPadding: EdgeInsets.all(0.0),
+              //       title: Text('தமிழ்'),
+              //       leading: CircleAvatar(child: Text("த")),
+              //     ),
+              //     value: 'ta'),
             ],
         onSelected: (v) => LocaleController.of(context).onLocaleChange(v),
       ),
@@ -133,41 +133,12 @@ class HomePageContent extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    CustomLocalizationProvider.of(context)
-                        .localization
-                        .homePageCenterScreenText,
-                    textAlign: TextAlign.center,
-                    style: theme.UITextThemes().articleTopBarBackgroundText,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _buildIconButton(
-                        FontAwesomeIcons.newspaper,
-                        () => TransitionMaker.slideTransition(
-                              destinationPageCall: () => CategoryView(),
-                            )..start(context),
-                      ),
-                      _buildIconButton(
-                        FontAwesomeIcons.handsHelping,
-                        () => TransitionMaker.slideTransition(
-                              destinationPageCall: () => DocListPage(),
-                            )..start(context),
-                      ),
-                      _buildIconButton(
-                        FontAwesomeIcons.map,
-                        () => TransitionMaker.slideTransition(
-                              destinationPageCall: () => LocationMap(),
-                            )..start(context),
-                      )
-                    ],
-                  ),
-                ],
+              child: Text(
+                CustomLocalizationProvider.of(context)
+                    .localization
+                    .homePageCenterScreenText,
+                textAlign: TextAlign.center,
+                style: theme.UITextThemes().articleTopBarBackgroundText,
               ),
             ),
           ),
@@ -178,24 +149,24 @@ class HomePageContent extends StatelessWidget {
               FontAwesomeIcons.arrowDown,
               color: Colors.white,
             ),
-            margin: EdgeInsets.only(bottom: 100.0),
+            margin: EdgeInsets.only(bottom: 50.0),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildIconButton(IconData icon, VoidCallback destinationCallBack) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: IconButton(
-        icon: Icon(icon),
-        onPressed: destinationCallBack,
-        color: Colors.white,
-        splashColor: Colors.white,
-      ),
-    );
-  }
+  // Widget _buildIconButton(IconData icon, VoidCallback destinationCallBack) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(16.0),
+  //     child: IconButton(
+  //       icon: Icon(icon),
+  //       onPressed: destinationCallBack,
+  //       color: Colors.white,
+  //       splashColor: Colors.white,
+  //     ),
+  //   );
+  // }
 
   Widget _buildChildControl(Widget child, BuildContext context) {
     return SizedBox(

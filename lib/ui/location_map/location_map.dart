@@ -5,6 +5,7 @@ import 'package:mental_healthcare_app/bloc/location_map_bloc.dart';
 import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
+import 'package:mental_healthcare_app/ui/contact_helper.dart';
 
 class LocationMap extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class LocationMap extends StatefulWidget {
 }
 
 class LocationMapState extends State<LocationMap> {
-  GoogleMapController mapController;
+  GoogleMapController _mapController;
   final LocationMapBLoC bloc = LocationMapBLoC();
 
   LocationMapState() {
@@ -43,27 +44,27 @@ class LocationMapState extends State<LocationMap> {
   Widget _buildGoogleMap() {
     return Stack(
       children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: GoogleMap(
-              options: GoogleMapOptions(
-                cameraTargetBounds: CameraTargetBounds(
-                  LatLngBounds(
-                    southwest: LatLng(
-                        MAX_BOTTOM_LEFT_LATITUDE, MAX_BOTTOM_LEFT_LONGITUDE),
-                    northeast:
-                        LatLng(MAX_TOP_RIGHT_LATITUDE, MAX_TOP_RIGHT_LONGITUDE),
-                  ),
-                ),
-                cameraPosition: CameraPosition(
-                  target: LatLng(SRILANKA_LATITUDE, SRILANKA_LONGITUDE),
-                  zoom: SRILANKA_ZOOM,
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: GoogleMap(
+            options: GoogleMapOptions(
+              cameraTargetBounds: CameraTargetBounds(
+                LatLngBounds(
+                  southwest: LatLng(
+                      MAX_BOTTOM_LEFT_LATITUDE, MAX_BOTTOM_LEFT_LONGITUDE),
+                  northeast:
+                      LatLng(MAX_TOP_RIGHT_LATITUDE, MAX_TOP_RIGHT_LONGITUDE),
                 ),
               ),
-              onMapCreated: _onGoogleMapCreated,
+              cameraPosition: CameraPosition(
+                target: LatLng(SRILANKA_LATITUDE, SRILANKA_LONGITUDE),
+                zoom: SRILANKA_ZOOM,
+              ),
             ),
+            onMapCreated: _onGoogleMapCreated,
           ),
+        ),
         Positioned(
           top: 0.0,
           width: MediaQuery.of(context).size.width,
@@ -73,70 +74,14 @@ class LocationMapState extends State<LocationMap> {
                 bool loaded = snapshot.hasData && snapshot.data != null;
                 return IgnorePointer(
                   ignoring: !loaded,
-                  child: Opacity(
-                    opacity: loaded ? 1.0 : 0.0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Card(
-                        color: theme.UIColors.secondaryColor,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: <Widget>[
-                              ListTile(
-                                leading: Icon(
-                                  FontAwesomeIcons.infoCircle,
-                                  size: theme.UITextThemes()
-                                      .locationOverlayText
-                                      .fontSize,
-                                  color: theme.UITextThemes()
-                                      .locationOverlayText
-                                      .color,
-                                ),
-                                title: Text(
-                                  loaded ? snapshot.data.name : "",
-                                  style: theme.UITextThemes()
-                                      .locationOverlayText
-                                      .copyWith(fontWeight: FontWeight.w600),
-                                ),
-                                subtitle: Text(
-                                  loaded ? snapshot.data.email : "",
-                                  style: theme.UITextThemes()
-                                      .locationOverlayText
-                                      .copyWith(fontSize: 12),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  loaded
-                                      ? "${snapshot.data.address}\n\n"
-                                          "Tel: ${snapshot.data.telephone}\n"
-                                          "Fax: ${snapshot.data.fax}"
-                                      : "",
-                                  style: TextStyle(
-                                    color: theme.UITextThemes()
-                                        .locationOverlayText
-                                        .color,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: OutlineButton(
-                                  child: Text("Close",
-                                      style: theme.UITextThemes()
-                                          .locationOverlayText),
-                                  onPressed: () =>
-                                      bloc.mapMarkerSelectedSink.add(null),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: loaded
+                      ? Opacity(
+                          opacity: loaded ? 1.0 : 0.0,
+                          child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: _buildOverlay(snapshot.data)),
+                        )
+                      : Container(),
                 );
               }),
         ),
@@ -145,20 +90,81 @@ class LocationMapState extends State<LocationMap> {
   }
 
   void _onGoogleMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    _mapController = controller;
     bloc.mapLoadedSink.add(true);
-    mapController.onMarkerTapped.add((marker) {
+    _mapController.onMarkerTapped.add((marker) {
       bloc.mapMarkerSelectedSink.add(marker);
     });
   }
 
   void _addMarker(Location location) {
-    if (mapController == null) return;
+    if (_mapController == null) return;
     if (location == null) return;
-
     MarkerOptions markerOptions = MarkerOptions(
         position: LatLng(location.latitude, location.longitude),
         infoWindowText: InfoWindowText(location.name, location.email));
-    mapController.addMarker(markerOptions);
+    _mapController.addMarker(markerOptions);
+  }
+
+  Widget _buildOverlay(Location location) {
+    return Card(
+      color: theme.UIColors.primaryColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                location.name,
+                style: theme.UITextThemes()
+                    .locationOverlayText
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                "${location.address}\n\n"
+                    "Tel: ${location.telephone}\n"
+                    "Fax: ${location.fax}",
+                style: TextStyle(
+                  color: theme.UITextThemes().locationOverlayText.color,
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                ButtonBar(
+                  children: <Widget>[
+                    CircleAvatar(
+                      child: IconButton(
+                        onPressed: () => ContactHelper.launchAction(
+                            location.telephone.split("/")[0].trim(),
+                            LaunchMethod.CALL),
+                        icon: Icon(Icons.call),
+                      ),
+                    ),
+                    CircleAvatar(
+                      child: IconButton(
+                        onPressed: () => ContactHelper.launchAction(
+                            location.email.trim(), LaunchMethod.MAIL),
+                        icon: Icon(Icons.email),
+                      ),
+                    ),
+                  ],
+                ),
+                OutlineButton(
+                  child: Text("Close",
+                      style: theme.UITextThemes().locationOverlayText),
+                  onPressed: () => bloc.mapMarkerSelectedSink.add(null),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
