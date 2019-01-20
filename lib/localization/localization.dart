@@ -38,7 +38,7 @@ abstract class CustomLocalization {
   String get homePageDrawerConsultantsDescription;
   String get homePageDrawerReadArticles;
   String get homePageDrawerReadArticlesDescription;
-  String get homePageRecentArticlesTitle;
+  String get homePageFeaturedArticlesTitle;
   String get postCardReadButtonText;
   String get readArticlesAppBarTitle;
   String get readArticlesArticlesTitle;
@@ -62,7 +62,7 @@ class En implements CustomLocalization {
   String get homePageDrawerConsultantsDescription => "Know about NCMH";
   String get homePageDrawerReadArticles => "Read Articles";
   String get homePageDrawerReadArticlesDescription => "Spread Awareness";
-  String get homePageRecentArticlesTitle => "Recent Articles";
+  String get homePageFeaturedArticlesTitle => "Featured Articles";
   String get postCardReadButtonText => "Read";
   String get readArticlesAppBarTitle => "Read Articles";
   String get readArticlesArticlesTitle => "Read Articles";
@@ -87,7 +87,7 @@ class Si implements CustomLocalization {
   String get homePageDrawerReadArticles => "ලිපි කියවන්න";
   String get homePageDrawerReadArticlesDescription =>
       "මානසික ගැටළු පිලිබදව දැනුවත් වෙන්න";
-  String get homePageRecentArticlesTitle => "මෑතකාලීන ලිපි";
+  String get homePageFeaturedArticlesTitle => "මෑතකාලීන ලිපි";
   String get postCardReadButtonText => "කියවන්න";
   String get readArticlesAppBarTitle => "ලිපි කියවන්න";
   String get readArticlesArticlesTitle => "ලිපි කියවන්න";
@@ -111,7 +111,7 @@ class Ta implements CustomLocalization {
   String get homePageDrawerConsultantsDescription => "தொடர்பு ஆலோசகர்கள்";
   String get homePageDrawerReadArticles => "கட்டுரைகள் படிக்கவும்";
   String get homePageDrawerReadArticlesDescription => "விழிப்புணர்வு";
-  String get homePageRecentArticlesTitle => "சமீபத்திய கட்டுரைகள்";
+  String get homePageFeaturedArticlesTitle => "சமீபத்திய கட்டுரைகள்";
   String get postCardReadButtonText => "படிக்க";
   String get readArticlesAppBarTitle => "கட்டுரைகள் படிக்கவும்";
   String get readArticlesArticlesTitle => "கட்டுரைகள் படிக்கவும்";

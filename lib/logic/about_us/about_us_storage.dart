@@ -127,16 +127,6 @@ Being a Justice of the peace (All Island) he is serving as the president of the 
         "url": "http://www.ncmh.lk/ncmh_Whos_who.htm",
       },
       {
-        "photo": "http://www.ncmh.lk/images/dowloaded/Chamodi%20Jayasinghe.JPG",
-        "name": "Ms.Chamodi Jayasinghe",
-        "description": """
-Ms. Chamodi Jayasinghe joined the National Council for mental Health in the year 2018 and working as the Mental Health Officer and Deputy Administrator, at Residential Facility Gorakana. She has got B.A Honors special in Philosophy and Diploma in Human Resources from University of Kelaniya. She has got Diploma in Counseling from Srilanka Mental Health Foundation Colombo.
-""",
-        "title":
-            "Mental Health Officer/ Deputy Administrator, Residential Facility Gorakana",
-        "url": "http://www.ncmh.lk/ncmh_Whos_who.htm",
-      },
-      {
         "photo":
             "http://www.ncmh.lk/images/dowloaded/Nadeeka%20Premathilaka.JPG",
         "name": "Ms. Naddeka Premathilaka",
@@ -149,7 +139,7 @@ Ms. Nadeeka Premathilaka joined the National Council for Mental Health in the ye
       },
       {
         "photo":
-            "http://www.ncmh.lk/images/dowloaded/Bandumathie%20Manike%20USER.png",
+            "http://ncmh.lk/images/dowloaded/banduwathie%20manike.jpg",
         "name": "Ms. Banduwathie Manike",
         "description": """
 Ms. Banduwathie Manike joined the National Council for Mental Health in the year 2016 and working as the Matron in charge, at Residential Facility Gorakana. She has been working as a Nursing Officer in the Ministry of Health for 15 years and she has worked as a Psychiatric Nurse in National Instutute of Mental Health Angoda and Mental Hospital Mulleriyawa for 05 years. Diuring this period she has followed a one year training program in mental health conducted by W H O. Ms. Menike has worked as a Public Health Nursing Sister for 05 years and as a Public Health Tutor for 04 years in the Ministry of Health.

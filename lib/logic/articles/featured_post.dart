@@ -46,6 +46,7 @@ class FeaturedPost extends Post {
         "&_fields[]=title"
         "&_fields[]=excerpt"
         "&_fields[]=featured_media"
+        "&sticky=true"
         "&per_page=6";
 
     List<Post> parsedPosts = await Post.getPostsFromWeb(-1, postUrl);

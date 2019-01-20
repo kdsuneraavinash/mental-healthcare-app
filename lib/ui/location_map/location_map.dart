@@ -126,8 +126,8 @@ class LocationMapState extends State<LocationMap> {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 "${location.address}\n\n"
-                    "Tel: ${location.telephone}\n"
-                    "Fax: ${location.fax}",
+                    "Telephone Numbers: \n${location.telephone1}\n"
+                    "${location.telephone2}",
                 style: TextStyle(
                   color: theme.UITextThemes().locationOverlayText.color,
                 ),
@@ -138,21 +138,8 @@ class LocationMapState extends State<LocationMap> {
               children: <Widget>[
                 ButtonBar(
                   children: <Widget>[
-                    CircleAvatar(
-                      child: IconButton(
-                        onPressed: () => ContactHelper.launchAction(
-                            location.telephone.split("/")[0].trim(),
-                            LaunchMethod.CALL),
-                        icon: Icon(Icons.call),
-                      ),
-                    ),
-                    CircleAvatar(
-                      child: IconButton(
-                        onPressed: () => ContactHelper.launchAction(
-                            location.email.trim(), LaunchMethod.MAIL),
-                        icon: Icon(Icons.email),
-                      ),
-                    ),
+                    _buildTelelphoneButton(location.telephone1.trim(), 1),
+                    _buildTelelphoneButton(location.telephone2.trim(), 2),
                   ],
                 ),
                 OutlineButton(
@@ -165,6 +152,37 @@ class LocationMapState extends State<LocationMap> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTelelphoneButton(String phoneNumber, int index) {
+    return Stack(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CircleAvatar(
+            child: IconButton(
+              onPressed: () =>
+                  ContactHelper.launchAction(phoneNumber, LaunchMethod.CALL),
+              icon: Icon(Icons.call),
+            ),
+          ),
+        ),
+        Positioned(
+          child: Opacity(
+            opacity: 0.5,
+            child: CircleAvatar(
+              child: Text(
+                "$index",
+                style: TextStyle(fontSize: 14.0),
+              ),
+              radius: 12.0,
+            ),
+          ),
+          bottom: 0,
+          right: 0,
+        )
+      ],
     );
   }
 }

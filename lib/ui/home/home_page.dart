@@ -5,11 +5,8 @@ import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/main.dart';
 import 'package:mental_healthcare_app/theme.dart' as theme;
-import 'package:mental_healthcare_app/ui/about_us/about_us_page.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
-import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
-import 'package:mental_healthcare_app/ui/transition_maker.dart';
 
 class HomePageContent extends StatelessWidget {
   final FeaturedPostBLoC bloc;
@@ -34,7 +31,7 @@ class HomePageContent extends StatelessWidget {
                     return CategoryView.buildSectionHeader(
                         CustomLocalizationProvider.of(context)
                             .localization
-                            .homePageRecentArticlesTitle);
+                            .homePageFeaturedArticlesTitle);
                   } else {
                     if (snapshot.hasData && snapshot.data.length > 0) {
                       return PostCard(snapshot.data[index - 1]);

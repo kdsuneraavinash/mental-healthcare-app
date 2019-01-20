@@ -167,8 +167,8 @@ class PersonDetailsPageHeader extends StatelessWidget {
                   width: 160.0,
                   height: 160.0,
                   child: CachedNetworkImage(
-                    placeholder: Container(
-                      color: theme.UIColors.secondaryColor,
+                    placeholder: Center(
+                      child: CircularProgressIndicator(),
                     ),
                     imageUrl: photoUrl,
                     fit: BoxFit.cover,

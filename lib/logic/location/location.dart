@@ -14,8 +14,8 @@ class Location {
   final double latitude;
   final String email;
   final String address;
-  final String fax;
-  final String telephone;
+  final String telephone2;
+  final String telephone1;
   final String name;
 
   Location(
@@ -23,8 +23,8 @@ class Location {
     this.latitude,
     this.email,
     this.address,
-    this.fax,
-    this.telephone,
+    this.telephone2,
+    this.telephone1,
     this.name,
   );
 
@@ -33,16 +33,16 @@ class Location {
     double latitude = map["latitude"];
     String email = map["email"];
     String address = map["address"];
-    String fax = map["fax"];
-    String telephone = map["telephone"];
+    String telephone2 = map["telephone2"];
+    String telephone1 = map["telephone1"];
     String name = map["name"];
     return Location(
       longitude,
       latitude,
       email,
       address,
-      fax,
-      telephone,
+      telephone2,
+      telephone1,
       name,
     );
   }
@@ -60,9 +60,9 @@ class Location {
       "latitude": latitude,
       "email": email,
       "address": address,
-      "fax": fax,
+      "telephone2": telephone2,
       "name": name,
-      "telephone": telephone
+      "telephone1": telephone1
     }.toString();
   }
 }
