@@ -1,6 +1,5 @@
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:flutter/material.dart';
-import 'package:mental_healthcare_app/theme.dart' as theme;
 
 class ArticleView extends StatefulWidget {
   final String title;
@@ -44,7 +43,7 @@ class ArticleViewState extends State<ArticleView> {
         WebviewScaffold(
           appBar: AppBar(
             title: Text(widget.title),
-            backgroundColor: theme.UIColors.primaryColor,
+            backgroundColor: Theme.of(context).primaryColor,
             actions: <Widget>[
               Container(
                 padding: EdgeInsets.only(right: 40.0),
@@ -65,7 +64,7 @@ class ArticleViewState extends State<ArticleView> {
           scrollBar: true,
           initialChild: Center(
             child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation(theme.UIColors.accentColor),
+              valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
             ),
           ),
         ),

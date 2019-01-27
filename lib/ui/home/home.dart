@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mental_healthcare_app/localization/localization.dart';
-import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/ui/about_us/about_us_page.dart';
 import 'package:mental_healthcare_app/ui/articles/category_view.dart';
+import 'package:mental_healthcare_app/ui/books/books.dart';
 import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
 import 'package:mental_healthcare_app/ui/home/home_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
@@ -13,32 +12,61 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: HomePageContent(),
+      appBar: _buildAppBar(context),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           physics: ClampingScrollPhysics(),
-          children: [buildDrawerHeading()] + buildDrawerActions(context),
+          children: [buildDrawerHeading(context)] + buildDrawerActions(context),
         ),
       ),
     );
   }
 
-  Widget buildDrawerHeading() {
-    return UserAccountsDrawerHeader(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("res/images/drawer-header.jpg"),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              theme.UIColors.primaryColor.withAlpha(0xCC),
-              BlendMode.srcATop,
+  Widget _buildAppBar(BuildContext context) {
+    return AppBar(
+      actions: _buildAppBarActions(context),
+      backgroundColor: Theme.of(context).primaryColor,
+      title: Text("Sahanaya App"),
+    );
+  }
+
+  List<Widget> _buildAppBarActions(BuildContext context) {
+    return [
+      PopupMenuButton(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(FontAwesomeIcons.language, color: Colors.white),
             ),
-          ),
-          color: theme.UIColors.primaryColor),
-      accountEmail: Text("user@sahanaya.com"),
-      accountName: Text("User"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("English", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
+        itemBuilder: (_) => <PopupMenuItem<String>>[
+              PopupMenuItem<String>(
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0.0),
+                    title: Text('English'),
+                    leading: CircleAvatar(child: Text("En")),
+                  ),
+                  value: 'en'),
+            ],
+      ),
+    ];
+  }
+
+  Widget buildDrawerHeading(BuildContext context) {
+    return UserAccountsDrawerHeader(
+      decoration: BoxDecoration(color: Theme.of(context).primaryColor),
+      accountEmail: Text("https://www.ncmh.lk"),
+      accountName: Text("National Council for Mental Health"),
       currentAccountPicture: CircleAvatar(
-        child: Icon(FontAwesomeIcons.user),
+        child: Icon(FontAwesomeIcons.fly),
       ),
     );
   }
@@ -46,48 +74,41 @@ class HomePage extends StatelessWidget {
   List<Widget> buildDrawerActions(BuildContext context) {
     return [
       _buildDrawerListTile(
-        title: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerReadArticles,
-        subtitle: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerReadArticlesDescription,
+        title: "Read Articles",
+        subtitle: "Spread Awareness",
         icon: FontAwesomeIcons.newspaper,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => CategoryView(),
             )..start(context),
+        context: context,
       ),
       _buildDrawerListTile(
-        title: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerConsultants,
-        subtitle: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerConsultantsDescription,
+        title: "About Us",
+        subtitle: "Know about NCMH",
         icon: FontAwesomeIcons.handsHelping,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => AboutUsPage(),
             )..start(context),
+        context: context,
       ),
       _buildDrawerListTile(
-        title: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerClinics,
-        subtitle: CustomLocalizationProvider.of(context)
-            .localization
-            .homePageDrawerClinicsDescription,
+        title: "Our Locations",
+        subtitle: "View our locations and contacts",
         icon: FontAwesomeIcons.map,
         destinationCallBack: () => TransitionMaker.slideTransition(
               destinationPageCall: () => LocationMap(),
             )..start(context),
+        context: context,
       ),
-//      Divider(),
-//      _buildDrawerListTile(
-//        title: "Settings",
-//        subtitle: "Adjust settings",
-//        icon: FontAwesomeIcons.cogs,
-//        iconColor: Colors.black87,
-//      ),
+      _buildDrawerListTile(
+        title: "Our Books",
+        subtitle: "Read mental health books",
+        icon: FontAwesomeIcons.book,
+        destinationCallBack: () => TransitionMaker.slideTransition(
+              destinationPageCall: () => Books(),
+            )..start(context),
+        context: context,
+      ),
     ];
   }
 
@@ -97,13 +118,14 @@ class HomePage extends StatelessWidget {
     @required IconData icon,
     Color iconColor,
     VoidCallback destinationCallBack,
+    BuildContext context,
   }) {
     return ListTile(
       title: Text(title),
       subtitle: Text(subtitle),
       leading: Icon(
         icon,
-        color: iconColor ?? theme.UIColors.accentColor,
+        color: iconColor ?? Theme.of(context).accentColor,
       ),
       onTap: destinationCallBack,
     );

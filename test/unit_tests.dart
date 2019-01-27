@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mental_healthcare_app/logic/articles/category.dart';
 import 'package:mental_healthcare_app/logic/articles/featured_post.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
+import 'package:mental_healthcare_app/logic/books/book.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
 
 void main() {
@@ -33,5 +34,9 @@ void main() {
 
   test("Checking if Featured Posts load successfully from web", () async {
   expect(await FeaturedPost.getFeaturedPostsFromWeb(), allOf([isNotNull]));
+  });
+
+  test("Checking if Books load successfully from test", () {
+  expect(Book.getTestBooks(), allOf([isNotNull]));
   });
 }

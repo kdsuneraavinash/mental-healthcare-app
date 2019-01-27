@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/bloc/about_us_bloc.dart';
-import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/about_us/about_person.dart';
-import 'package:mental_healthcare_app/theme.dart' as theme;
 
 class AboutUsPage extends StatelessWidget {
   AboutUsPage() : this.bloc = AboutUsBLoC();
@@ -17,10 +15,8 @@ class AboutUsPage extends StatelessWidget {
               length: snapshot.data.length,
               child: Scaffold(
                 appBar: AppBar(
-                  title: Text(CustomLocalizationProvider.of(context)
-                      .localization
-                      .consultantsAppBarTitle),
-                  backgroundColor: theme.UIColors.primaryColor,
+                  title: Text("About Us"),
+                  backgroundColor: Theme.of(context).primaryColor,
                   bottom: TabBar(
                     isScrollable: true,
                     tabs: snapshot.data
@@ -46,10 +42,8 @@ class AboutUsPage extends StatelessWidget {
             )
           : Scaffold(
               appBar: AppBar(
-                title: Text(CustomLocalizationProvider.of(context)
-                    .localization
-                    .consultantsAppBarTitle),
-                backgroundColor: theme.UIColors.primaryColor,
+                title: Text("About Us"),
+                backgroundColor: Theme.of(context).primaryColor,
               ),
               body: Center(
                 child: CircularProgressIndicator(),
@@ -72,7 +66,6 @@ class AboutUsPageContent extends StatelessWidget {
 
   List<Widget> _buildInfoList(BuildContext context) {
     List<Widget> column = [
-      Container(height: 25.0, color: theme.UIColors.primaryColor),
       PersonDetailsPageHeader(photoUrl: this.aboutPerson.photo),
     ];
 
@@ -132,7 +125,7 @@ class PersonDetailsPageHeader extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          color: theme.UIColors.primaryColor,
+          color: Theme.of(context).primaryColor,
           height: 180.0,
         ),
         _buildHeaderImage(context),

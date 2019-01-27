@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mental_healthcare_app/bloc/location_map_bloc.dart';
-import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/location/location.dart';
-import 'package:mental_healthcare_app/theme.dart' as theme;
 import 'package:mental_healthcare_app/ui/contact_helper.dart';
 
 class LocationMap extends StatefulWidget {
@@ -27,10 +24,8 @@ class LocationMapState extends State<LocationMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(CustomLocalizationProvider.of(context)
-            .localization
-            .locationsAppBarTitle),
-        backgroundColor: theme.UIColors.primaryColor,
+        title: Text("Our Locations"),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: StreamBuilder(
         stream: bloc.startWindowStream,
@@ -108,7 +103,7 @@ class LocationMapState extends State<LocationMap> {
 
   Widget _buildOverlay(Location location) {
     return Card(
-      color: theme.UIColors.primaryColor,
+      color: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -117,9 +112,10 @@ class LocationMapState extends State<LocationMap> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 location.name,
-                style: theme.UITextThemes()
-                    .locationOverlayText
-                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0,
+                    color: Colors.white),
               ),
             ),
             Padding(
@@ -129,7 +125,7 @@ class LocationMapState extends State<LocationMap> {
                     "Telephone Numbers: \n${location.telephone1}\n"
                     "${location.telephone2}",
                 style: TextStyle(
-                  color: theme.UITextThemes().locationOverlayText.color,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -143,8 +139,7 @@ class LocationMapState extends State<LocationMap> {
                   ],
                 ),
                 OutlineButton(
-                  child: Text("Close",
-                      style: theme.UITextThemes().locationOverlayText),
+                  child: Text("Close", style: TextStyle(color: Colors.white)),
                   onPressed: () => bloc.mapMarkerSelectedSink.add(null),
                 ),
               ],

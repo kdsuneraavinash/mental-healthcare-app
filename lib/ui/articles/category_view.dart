@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/category_view_bloc.dart';
-import 'package:mental_healthcare_app/localization/localization.dart';
 import 'package:mental_healthcare_app/logic/articles/category.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
 import 'package:mental_healthcare_app/ui/articles/post_card.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
-import 'package:mental_healthcare_app/theme.dart' as theme;
 
 const double EMPTY_SECTION_HEIGHT = 100.0;
 
@@ -20,10 +18,7 @@ class CategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.category?.name ??
-            CustomLocalizationProvider.of(context)
-                .localization
-                .readArticlesAppBarTitle),
+        title: Text(this.category?.name ?? "Read Articles"),
       ),
       body: StreamBuilder<List<Category>>(
         stream: bloc.categoryListStream,
@@ -43,28 +38,19 @@ class CategoryView extends StatelessWidget {
       BuildContext context,
       AsyncSnapshot<List<Category>> categorySnapshot,
       AsyncSnapshot<List<Post>> postSnapshot) {
-    return ListView(
-        physics: ClampingScrollPhysics(),
-        children: [
-              buildSectionHeader(CustomLocalizationProvider.of(context)
-                  .localization
-                  .readArticlesSubCategoriesTitle)
-            ] +
-            _buildCategoryStreamBuilder(context, categorySnapshot) +
-            [
-              buildSectionHeader(CustomLocalizationProvider.of(context)
-                  .localization
-                  .readArticlesArticlesTitle)
-            ] +
-            _buildPostStreamBuilder(context, postSnapshot));
+    return ListView(physics: ClampingScrollPhysics(), children: [
+      _buildSectionHeader(context, "Sub Categories",
+          _buildCategoryStreamBuilder(context, categorySnapshot)),
+      _buildSectionHeader(
+          context, "Articles", _buildPostStreamBuilder(context, postSnapshot))
+    ]);
   }
 
-  Widget _buildLoadingSpinner() {
+  Widget _buildLoadingSpinner(BuildContext context) {
     return SizedBox(
       child: Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(
-              theme.UIColors.iconSecondaryBackgroundColor),
+          valueColor: AlwaysStoppedAnimation(Theme.of(context).primaryColor),
         ),
       ),
       height: EMPTY_SECTION_HEIGHT,
@@ -86,8 +72,8 @@ class CategoryView extends StatelessWidget {
     BuildContext context,
     AsyncSnapshot<List<Category>> categorySnapshot,
   ) {
-    if (!categorySnapshot.hasData) return [_buildLoadingSpinner()];
-    if (categorySnapshot.data.length == 0) return [_buildEmptySection()];
+    if (!categorySnapshot.hasData) return [_buildLoadingSpinner(context)];
+    if (categorySnapshot.data.length == 0) return [];
     return categorySnapshot.data
         .map((v) => _buildSubCategoryItem(v, context))
         .toList();
@@ -97,7 +83,7 @@ class CategoryView extends StatelessWidget {
     BuildContext context,
     AsyncSnapshot<List<Post>> postSnapshot,
   ) {
-    if (!postSnapshot.hasData) return [_buildLoadingSpinner()];
+    if (!postSnapshot.hasData) return [_buildLoadingSpinner(context)];
     if (postSnapshot.data.length == 0) return [_buildEmptySection()];
     return postSnapshot.data.map((v) => PostCard(v)).toList();
   }
@@ -110,31 +96,36 @@ class CategoryView extends StatelessWidget {
       trailing: CircleAvatar(
         child: Text(
           "${category.count}",
-          style: theme.UITextThemes()
-              .articleHeaderText
-              .copyWith(fontWeight: FontWeight.w500),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        backgroundColor: theme.UIColors.iconBackgroundColor,
+        backgroundColor: Theme.of(context).accentColor,
       ),
       title: Text(category.name),
       subtitle: Text(category.slug),
       leading: Icon(
         FontAwesomeIcons.folder,
-        color: theme.UIColors.accentColor,
+        color: Theme.of(context).accentColor,
       ),
     );
   }
 
-  static Widget buildSectionHeader(String text) {
-    return Container(
-      height: 50.0,
-      color: theme.UIColors.secondaryColor,
-      padding: EdgeInsets.symmetric(horizontal: 16.0),
-      alignment: Alignment.centerLeft,
-      child: Text(
-        text,
-        style: theme.UITextThemes().articleHeaderText,
+  Widget _buildSectionHeader(
+      BuildContext context, String text, List<Widget> children) {
+    return ExpansionTile(
+      initiallyExpanded: true,
+      title: Text(
+        text.toUpperCase(),
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontWeight: FontWeight.w900,
+          fontSize: 18.0,
+        ),
       ),
+      children: children,
     );
   }
 }
