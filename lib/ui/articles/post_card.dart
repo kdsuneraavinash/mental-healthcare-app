@@ -70,8 +70,7 @@ class PostCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 10.0),
                   child: Text(
-                    "Posted ${post.formattedDate}"
-                        .toUpperCase(),
+                    "Posted ${post.formattedDate}".toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle.copyWith(
                           color: Theme.of(context).accentColor,
                           fontWeight: FontWeight.w600,
@@ -103,9 +102,11 @@ class PostCard extends StatelessWidget {
                 ),
                 Divider(color: Colors.black),
                 MaterialButton(
-                  onPressed: () {
-                    launch(post.link,
-                        enableJavaScript: false, forceWebView: true);
+                  onPressed: () async {
+                    if (await canLaunch(post.link)) {
+                      launch(post.link,
+                          enableJavaScript: false, forceWebView: true);
+                    }
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),

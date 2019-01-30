@@ -6,6 +6,7 @@ import 'package:mental_healthcare_app/ui/books/books.dart';
 import 'package:mental_healthcare_app/ui/location_map/location_map.dart';
 import 'package:mental_healthcare_app/ui/home/home_page.dart';
 import 'package:mental_healthcare_app/ui/transition_maker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -31,12 +32,21 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildDrawerHeading(BuildContext context) {
+    String url = "https://www.ncmh.lk";
+
     return UserAccountsDrawerHeader(
       decoration: BoxDecoration(color: Theme.of(context).primaryColor),
-      accountEmail: Text("https://www.ncmh.lk"),
+      accountEmail: Text(url),
       accountName: Text("National Council for Mental Health"),
       currentAccountPicture: CircleAvatar(
-        child: Icon(FontAwesomeIcons.fly),
+        child: IconButton(
+          icon: Icon(FontAwesomeIcons.fly),
+          onPressed: () async {
+            if (await canLaunch(url)) {
+              launch(url);
+            }
+          },
+        ),
       ),
     );
   }

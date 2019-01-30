@@ -20,6 +20,10 @@ class ContactHelper {
         break;
     }
 
+    launchUrl(url);
+  }
+
+  static void launchUrl(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {
