@@ -21,9 +21,13 @@ class PostCardBLoC {
   void _retrieveMediaLink() async {
     String postUrl = "$MEDIA_URL?include=$mediaId";
 
+    try{
     HTTP.Response response = await HTTP.get(postUrl);
     List postJson = JSON.jsonDecode(response.body);
     _mediaLinkStreamController.add(postJson[0]["source_url"]);
+    }catch(e){
+    _mediaLinkStreamController.add(null);
+    }
   }
 
   void dispose() {

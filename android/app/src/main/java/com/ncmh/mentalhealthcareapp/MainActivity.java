@@ -1,4 +1,4 @@
-package com.example.mentalhealthcareapp;
+package com.ncmh.mentalhealthcareapp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

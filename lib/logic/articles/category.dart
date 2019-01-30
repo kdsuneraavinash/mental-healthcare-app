@@ -81,17 +81,22 @@ class Category {
         "&_fields[]=slug"
         "&_fields[]=parent";
 
-    HTTP.Response response = await HTTP.get(categoryUrl);
+    try {
+      HTTP.Response response = await HTTP.get(categoryUrl);
 
-    List categoryJson = JSON.jsonDecode(response.body);
+      List categoryJson = JSON.jsonDecode(response.body);
 
-    List<Map<String, dynamic>> parsedCategories = [];
-    for (dynamic category in categoryJson) {
-      if (category is Map<String, dynamic>) {
-        parsedCategories.add(category);
+      List<Map<String, dynamic>> parsedCategories = [];
+      for (dynamic category in categoryJson) {
+        if (category is Map<String, dynamic>) {
+          parsedCategories.add(category);
+        }
       }
+      return getCategoriesFromJson(parsedCategories);
+    } catch (e) {
+      print("Network Exception: $e");
+      return [];
     }
-    return getCategoriesFromJson(parsedCategories);
   }
 
   @override

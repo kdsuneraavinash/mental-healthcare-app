@@ -16,6 +16,31 @@ class Post {
   final String excerpt;
   final int featuredMediaId;
 
+  String get formattedDate {
+    DateTime x = DateTime.parse(date);
+    int d = x.day;
+    int m = x.month;
+    int y = x.year;
+
+    List<String> month = [
+      "",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+
+    return "$d, ${month[m]}, $y";
+  }
+
   Post({
     this.id,
     this.date,
@@ -63,16 +88,21 @@ class Post {
         "&per_page=100";
     if (categoryId != -1) postUrl += "&categories=$categoryId";
 
-    HTTP.Response response = await HTTP.get(postUrl);
-    List postJson = JSON.jsonDecode(response.body);
+    try {
+      HTTP.Response response = await HTTP.get(postUrl);
+      List postJson = JSON.jsonDecode(response.body);
 
-    List<Map<String, dynamic>> parsedPosts = [];
-    for (dynamic post in postJson) {
-      if (post is Map<String, dynamic>) {
-        parsedPosts.add(post);
+      List<Map<String, dynamic>> parsedPosts = [];
+      for (dynamic post in postJson) {
+        if (post is Map<String, dynamic>) {
+          parsedPosts.add(post);
+        }
       }
+      return getPostsFromJson(parsedPosts);
+    } catch (e) {
+      print("Network Exception: $e");
+      return [];
     }
-    return getPostsFromJson(parsedPosts);
   }
 
   @override

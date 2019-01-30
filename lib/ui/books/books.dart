@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mental_healthcare_app/bloc/book_bloc.dart';
 import 'package:mental_healthcare_app/logic/books/book.dart';
 
@@ -43,17 +42,16 @@ class BookShelf extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: CachedNetworkImage(
-                              imageUrl: snapshot.data[index].image,
-                              placeholder:
-                                  Center(child: CircularProgressIndicator()),
-                              errorWidget: Container(),
+                            child: Image.network(
+                              snapshot.data[index].image,
                               height: 125,
                               width: 100,
+                              fit: BoxFit.cover,
                             ),
-                            decoration: BoxDecoration(boxShadow: [
-                              BoxShadow(blurRadius: 5.0, offset: Offset(4, 4))
-                            ]),
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 1.0),
+                              color: Colors.grey[500]
+                            ),
                           ),
                         ),
                         height: 160,

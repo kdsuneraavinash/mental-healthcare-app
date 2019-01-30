@@ -14,7 +14,7 @@ class HomePageContent extends StatelessWidget {
       stream: bloc.featuredPostListStream,
       builder: (_, snapshot) {
         return ListView.builder(
-            itemCount: snapshot.data?.length,
+            itemCount: snapshot.data?.length ?? 1,
             physics: ClampingScrollPhysics(),
             itemBuilder: (listContext, index) {
               if (snapshot.hasData && snapshot.data.length > 0) {

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mental_healthcare_app/bloc/about_us_bloc.dart';
 import 'package:mental_healthcare_app/logic/about_us/about_person.dart';
@@ -159,13 +158,7 @@ class PersonDetailsPageHeader extends StatelessWidget {
                 child: SizedBox(
                   width: 160.0,
                   height: 160.0,
-                  child: CachedNetworkImage(
-                    placeholder: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                    imageUrl: photoUrl,
-                    fit: BoxFit.cover,
-                  ),
+                  child: Image.network(photoUrl, fit: BoxFit.cover),
                 ),
                 clipBehavior: Clip.antiAlias,
               ),

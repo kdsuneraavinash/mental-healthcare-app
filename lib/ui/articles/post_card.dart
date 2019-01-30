@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mental_healthcare_app/bloc/post_card_bloc.dart';
 import 'package:mental_healthcare_app/logic/articles/post.dart';
-import 'package:mental_healthcare_app/ui/articles/article_view.dart';
-import 'package:mental_healthcare_app/ui/transition_maker.dart';
-import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostCard extends StatelessWidget {
   final Post post;
@@ -35,8 +32,7 @@ class PostCard extends StatelessWidget {
                       clipBehavior: Clip.antiAlias,
                       child: Stack(
                         children: <Widget>[
-                          CachedNetworkImage(
-                              imageUrl: snapshot.data,
+                          Image.network(snapshot.data,
                               fit: BoxFit.cover,
                               height: imageHeight,
                               width: MediaQuery.of(context).size.width),
@@ -74,9 +70,7 @@ class PostCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 10.0),
                   child: Text(
-                    (DateFormat("'Posted' dd, MMMM, yyyy")
-                            .format(DateTime.parse(post.date)))
-                        .toString()
+                    "Posted ${post.formattedDate}"
                         .toUpperCase(),
                     style: Theme.of(context).textTheme.subtitle.copyWith(
                           color: Theme.of(context).accentColor,
@@ -109,10 +103,10 @@ class PostCard extends StatelessWidget {
                 ),
                 Divider(color: Colors.black),
                 MaterialButton(
-                  onPressed: () => TransitionMaker.slideTransition(
-                        destinationPageCall: () =>
-                            ArticleView(post.title, post.link),
-                      )..start(context),
+                  onPressed: () {
+                    launch(post.link,
+                        enableJavaScript: false, forceWebView: true);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(

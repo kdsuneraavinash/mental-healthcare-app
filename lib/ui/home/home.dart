@@ -25,39 +25,9 @@ class HomePage extends StatelessWidget {
 
   Widget _buildAppBar(BuildContext context) {
     return AppBar(
-      actions: _buildAppBarActions(context),
       backgroundColor: Theme.of(context).primaryColor,
       title: Text("Sahanaya App"),
     );
-  }
-
-  List<Widget> _buildAppBarActions(BuildContext context) {
-    return [
-      PopupMenuButton(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(FontAwesomeIcons.language, color: Colors.white),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("English", style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-        itemBuilder: (_) => <PopupMenuItem<String>>[
-              PopupMenuItem<String>(
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(0.0),
-                    title: Text('English'),
-                    leading: CircleAvatar(child: Text("En")),
-                  ),
-                  value: 'en'),
-            ],
-      ),
-    ];
   }
 
   Widget buildDrawerHeading(BuildContext context) {
